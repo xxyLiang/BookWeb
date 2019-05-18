@@ -1,14 +1,71 @@
 <!DOCTYPE html>
 
 <html>
+
 <head>
     <title>图书</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/layui.css">
     <script src="./layui.js"></script>
+    <style type="text/css">
+        body {
+            font-family: "Microsoft YaHei";
+            min-width: 1080px;
+        }
+
+        #choose-div {
+            width: 80px;
+            margin-right: 0px; 
+        }
+
+        #input-div {
+            width: calc(100% - 118px);
+            min-width: 200px;
+            margin-right: 0px;
+        }
+        #input-box {
+            border-width: 0px;
+        }
+        #search-btn { 
+            border-width: 0px;
+            padding: 0 0;
+            width: 38px;            
+        }
+        #search-box {
+            width: 40%;
+            min-width: 318px;
+            margin-left: auto;
+            margin-right: auto;
+            border-bottom-width: 10px;
+            border-color: rgb(230, 230, 230)
+        }
+
+    </style>
 </head>
+
 <body>
-    <h1>start from here!</h1>
+    <form class="layui-form">
+        <div class="layui-form-item" id="search-box">
+            <div class="layui-input-inline" id="choose-div">
+                <select name="attribute" lay-filter="attr">
+                    <option value="bn">书名</option>
+                    <option value="author">作者</option>
+                    <option value="press">出版社</option>
+                </select>
+            </div>
+            <div class="layui-input-inline" id="input-div">
+                <input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input" id="input-box">
+            </div>
+            <button class="layui-btn layui-btn-primary" lay-submit  id="search-btn">
+                <i class="layui-icon">&#xe615;</i>
+            </button>
+        </div>
+    </form>
+    <script>
+        layui.use('form', function () {
+            var form = layui.form;
+        });
+    </script>
 </body>
 
 </html>
