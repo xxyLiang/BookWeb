@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>图书</title>
+    <title>图书系统</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/layui.css">
     <script src="./layui.js"></script>
@@ -11,52 +11,75 @@
         body {
             font-family: "Microsoft YaHei";
             min-width: 1080px;
+            min-height: 608px;
+            background-image: url(./img/bg.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-color: #333;
         }
 
-        #choose-div {
-            width: 80px;
-            margin-right: 0px; 
+        .layui-form {
+            position: relative;
+            top: 150px;
+            height: 45px;
         }
-
         #input-div {
-            width: calc(100% - 118px);
+            width: calc(100% - 132px);
             min-width: 200px;
             margin-right: 0px;
         }
-        #input-box {
-            border-width: 0px;
+
+        #input-box{
+            border-style: none;
         }
-        #search-btn { 
-            border-width: 0px;
-            padding: 0 0;
-            width: 38px;            
-        }
+        
         #search-box {
-            width: 40%;
+            width: 36%;
+            height: 42px;
             min-width: 318px;
-            margin-left: auto;
+            margin-left: 200px;
             margin-right: auto;
-            border-bottom-width: 10px;
-            border-color: rgb(230, 230, 230)
+            border: 1px solid rgb(230, 230, 230);
+            background: white;
         }
 
+        #select-div {       /* 下拉选择的大框 */
+            width: 90px;
+            height: 42px;
+            margin-right: 0px; 
+        }
+        .layui-input{       /* 下拉选择的小框 */
+            border-width: 0 1px 0 0;
+            height: 42px;
+        }
+        #search-box button {    /* 搜索按钮 */
+            border-width: 0px;
+            padding: 0 0;
+            width: 42px;    
+            height: 42px;        
+        }
+        
+        #search-box button i{
+            font-size: 20px;
+        }
     </style>
 </head>
 
 <body>
-    <form class="layui-form">
+    
+    <form class="layui-form" action="search_page.jsp">
         <div class="layui-form-item" id="search-box">
-            <div class="layui-input-inline" id="choose-div">
-                <select name="attribute" lay-filter="attr">
-                    <option value="bn">书名</option>
-                    <option value="author">作者</option>
-                    <option value="press">出版社</option>
+            <div class="layui-input-inline" id="select-div">
+                <select name="choose" lay-filter="attr">
+                    <option value="0">书名</option>
+                    <option value="1">作者</option>
+                    <option value="2">出版社</option>
                 </select>
             </div>
             <div class="layui-input-inline" id="input-div">
-                <input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input" id="input-box">
+                <input type="text" name="value" required lay-verify="required" autocomplete="off" class="layui-input" id="input-box">
             </div>
-            <button class="layui-btn layui-btn-primary" lay-submit  id="search-btn">
+            <button class="layui-btn layui-btn-primary" type="submit">
                 <i class="layui-icon">&#xe615;</i>
             </button>
         </div>
