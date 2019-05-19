@@ -7,88 +7,186 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/layui.css">
     <script src="./layui.js"></script>
+
     <style type="text/css">
         body {
             font-family: "Microsoft YaHei";
             min-width: 1080px;
-            min-height: 608px;
+            min-height: 900px;
             background-image: url(./img/bg.jpg);
             background-size: cover;
             background-repeat: no-repeat;
             background-color: #333;
         }
-
+        
         .layui-form {
-            position: relative;
-            top: 150px;
-            height: 45px;
+            position: absolute;
+            width: 30%;
+            min-width: 380px;
+            max-width: 573px;
+            left: 350px;
+            top: 250px;
+            z-index: 20;
         }
+        
         #input-div {
-            width: calc(100% - 132px);
-            min-width: 200px;
+            width: calc(100% - 130px);
+            min-width: 250px;
             margin-right: 0px;
         }
-
-        #input-box{
+        
+        #input-box {
             border-style: none;
+            padding-left: 15px;
         }
         
         #search-box {
-            width: 36%;
+            width: 100%;
             height: 42px;
-            min-width: 318px;
-            margin-left: 200px;
-            margin-right: auto;
-            border: 1px solid rgb(230, 230, 230);
-            background: white;
-        }
-
-        #select-div {       /* 下拉选择的大框 */
-            width: 90px;
-            height: 42px;
-            margin-right: 0px; 
-        }
-        .layui-input{       /* 下拉选择的小框 */
-            border-width: 0 1px 0 0;
-            height: 42px;
-        }
-        #search-box button {    /* 搜索按钮 */
-            border-width: 0px;
-            padding: 0 0;
-            width: 42px;    
-            height: 42px;        
+            border: 1px solid rgb(150, 150, 150);
+            border-radius: 5px;
+            background-color: white;
+            opacity: 0.9;
+            font-size: 15px;
         }
         
-        #search-box button i{
+        #field {
+            /* 字段选择的大框 */
+            width: 88px;
+            height: 42px;
+            margin-right: 0px;
+        }
+        
+        .layui-input {
+            /* 字段选择的小框 */
+            border-width: 0 1px 0 0;
+            border-radius: 0;
+            border-top-left-radius: 5px;
+            border-bottom-left-radius: 5px;
+            border-color: rgb(200, 200, 200);
+            height: 42px;
+        }
+        
+        .layui-form-select dl dd.layui-this,
+        .layui-nav-bar {
+            /* 下拉选择的颜色 */
+            background-color: #0E86E2 !important;
+        }
+        
+        #search-box button {
+            /* 搜索按钮 */
+            border-style: none;
+            border-radius: 5px;
+            padding: 0 0;
+            width: 42px;
+            height: 42px;
+        }
+        
+        #search-box button i {
+            /* 搜索按钮图片大小 */
             font-size: 20px;
+        }
+        
+        #nav {
+            position: absolute;
+            height: 100%;
+            min-height: 700px;
+            display: inline-block;
+            background-color: rgba(0, 0, 0, 0.3);
+            padding-top: 25px;
+            z-index: 1;
+        }
+        
+        #nav li * {
+            margin-left: 5px;
+            font-size: 15px;
+        }
+        
+        .focus_ovr {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black; 
+            display: none;
+            z-index: 10;
+            opacity: 0.5;
         }
     </style>
 </head>
 
 <body>
     
+    <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="nav" id="nav">
+        <li class="layui-nav-item"><a href="">小说</a></li>
+        <li class="layui-nav-item"><a href="">文学</a></li>
+        <li class="layui-nav-item"><a href="">青春文学</a></li>
+        <li class="layui-nav-item"><a href="">传记</a></li>
+        <li class="layui-nav-item"><a href="">励志与成功</a></li>
+        <li class="layui-nav-item"><a href="">管理</a></li>
+        <li class="layui-nav-item"><a href="">经济</a></li>
+        <li class="layui-nav-item"><a href="">金融与投资</a></li>
+        <li class="layui-nav-item"><a href="">历史</a></li>
+        <li class="layui-nav-item"><a href="">心理学</a></li>
+        <li class="layui-nav-item"><a href="">政治/军事</a></li>
+        <li class="layui-nav-item"><a href="">社会科学</a></li>
+        <li class="layui-nav-item"><a href="">科普读物</a></li>
+        <li class="layui-nav-item"><a href="">计算机与互联网</a></li>
+        <li class="layui-nav-item"><a href="">电子与通信</a></li>
+    </ul>
+
     <form class="layui-form" action="search_page.jsp">
         <div class="layui-form-item" id="search-box">
-            <div class="layui-input-inline" id="select-div">
-                <select name="choose" lay-filter="attr">
+            <div class="layui-input-inline" id="field">
+                <select name="field" lay-filter="field">
                     <option value="0">书名</option>
                     <option value="1">作者</option>
                     <option value="2">出版社</option>
                 </select>
             </div>
             <div class="layui-input-inline" id="input-div">
-                <input type="text" name="value" required lay-verify="required" autocomplete="off" class="layui-input" id="input-box">
+                <input type="text" name="value" title="输入你的检索词" required class="layui-input" id="input-box" >
             </div>
             <button class="layui-btn layui-btn-primary" type="submit">
                 <i class="layui-icon">&#xe615;</i>
             </button>
         </div>
     </form>
+
     <script>
-        layui.use('form', function () {
+        layui.use('form', function() {
             var form = layui.form;
         });
-    </script>
+
+        layui.use('element', function() {
+            var element = layui.element;
+
+            element.on('tab(demo)', function(data) {
+                console.log(data);
+            });
+        });
+        
+        layui.use(['jquery', 'layer'], function(){ 
+            var $ = layui.$,
+            layer = layui.layer;
+        
+            $("#input-box").focus(function(){
+                // 动态加载div并显示
+                var ovr=$('<div></div>'); 
+                ovr.addClass('focus_ovr');
+                ovr.attr('id', 'ovr');
+                $("form").after(ovr);
+                $(".focus_ovr").fadeToggle();
+            });
+
+            $("#input-box").blur(function(){
+                // 动态隐藏div并删除  
+                $(".focus_ovr").fadeToggle();
+                setTimeout(function () { $("#ovr").remove(); }, 300);
+            });
+        });
+        </script>
 </body>
 
 </html>

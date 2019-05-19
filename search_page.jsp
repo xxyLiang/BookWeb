@@ -25,7 +25,7 @@
                 </tr>
             </thead>
 <% 
-	String c = request.getParameter("choose");
+	String c = request.getParameter("field");
     int choose = Integer.parseInt(c);	
 	String value = request.getParameter("value");	
 	
@@ -36,14 +36,14 @@
 	Statement stmt = null;
 	ResultSet rs = null;
 	
-	String[] choice = {"book_name", "author", "press"};
+	String[] field = {"book_name", "author", "press"};
     String name = null;
     String author = null;
     String press = null;
 	try {
 		conn = ds.getConnection();			
 		stmt = conn.createStatement();
-        rs = stmt.executeQuery("select book_name, author, press from books where "+ choice[choose] +" like '%" + value +"%'");		
+        rs = stmt.executeQuery("select book_name, author, press from books where "+ field[choose] +" like '%" + value +"%'");		
         while (rs.next()) {
             name = rs.getString("book_name");
             author = rs.getString("author");
