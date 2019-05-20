@@ -7,58 +7,135 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/layui.css">
     <link rel="stylesheet" href="./css/ind.css">
-    <script src="./layui.js"></script>
+    <script src="layui.js"></script>
+    <script src="card.js"></script>
 
     <style type="text/css">
         body {
             background-color: #F2F2F2;
+            min-width: 1280px;
         }
-
+        
         .layui-form {
             position: absolute;
             width: 380px;
             left: 280px;
             top: 30px;
         }
-
+        
         #input-box {
             font-size: 14px;
         }
-
+        
         #nav {
             background-color: #393D49;
         }
-
-        .nav_sort {
+        
+        .content {
             display: block;
-            width: 920px;
+            width: 72%;
+            min-width: 932px;
+            max-width: 1280px;
             position: absolute;
             left: 280px;
             top: 100px;
         }
-
-        .nav_sort .sort {
+        
+        .content .sort {
             display: block;
             line-height: 34px;
-        }
-
-        .nav_sort .sort .left-padding{
-            float: left;
-            width: 100px;
+            background-color: #E2E2E2;
         }
         
-        .nav_sort .sort .sort-content{
-            margin-left: 100px;
-            padding-left: 10px;
-            width: 810px;
+        .content .sort .left-padding {
+            float: left;
+            width: 50px;
+            margin: 10px 20px 0 20px;
         }
-
+        
+        .content .sort .sort-content {
+            margin-left: 90px;
+            padding: 10px 20px 10px 20px;
+            width: calc(100% - 110px);
+            background-color: #F2F2F2;
+        }
+        
         #sc div {
-            display: inline-table;
+            display: inline-block;
             width: 150px;
-            height: 34px;
+            height: 25px;
             margin-right: 10px;
-
+        }
+        
+        #sc div {
+            /* 放不下文字...表示 */
+            overflow: hidden;
+            word-break: keep-all;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        
+        #book-list {
+            display: block;
+            width: 100%;
+            min-width: 932px;
+            max-width: 1280px;
+            font-size: 13px;
+        }
+        
+        .book-img {
+            display: inline-block;
+            width: 100%;
+            height: 200px;
+            margin-bottom: 20px;
+        }
+        
+        .book-img img {
+            width: 200px;
+            height: 200px;
+            margin: 0 10px 0 10px;
+        }
+        
+        .book-name {
+            padding: 0 0 10px 5px;
+            /* 只显示2行 */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+        
+        .book-author {
+            padding: 0 0 10px 5px;
+        }
+        
+        .book-press {
+            padding: 0 0 0 5px;
+            font-size: 12px;
+            color: grey;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        
+        .close-btn button {
+            width: 30px;
+            height: 30px;
+            padding: 0;
+            border-color: white;
+        }
+        
+        .close-btn .layui-icon {
+            position: absolute;
+            top: 6px;
+            left: 5px;
+            font-size: 20px;
+            line-height: 20px;
+            margin: 0;
         }
     </style>
 </head>
@@ -101,15 +178,18 @@
         </div>
     </form>
 
-    <div class="nav_sort">
+    <div class="content">
         <span class="layui-breadcrumb" lay-separator=">" id="breadcrumb">
             <a href="index.html">首页</a>
             <a href="">国际新闻</a>
             <a href="">亚太地区</a>
             <a><cite>正文</cite></a>
         </span>
-        <div><hr style="margin-top: 20px; margin-bottom: 10px;"></div>
+
         <div class="sort">
+            <div>
+                <hr style="margin-top: 20px; margin-bottom: 0;">
+            </div>
             <div class="left-padding"><span>分类：</span></div>
             <div class="sort-content" id="sc">
                 <div>分类1aaaaaa</div>
@@ -123,27 +203,50 @@
                 <div>分类1</div>
                 <div>分类1</div>
             </div>
+            <div>
+                <hr style="margin-top: 0; margin-bottom: 20px;">
+            </div>
         </div>
-        <div><hr style="margin-top: 10px; margin-bottom: 20px;"></div>
+
+        <div id="book-list">
+            <div class="book card">
+                <div class="card__flipper">
+                    <div class="card__front">
+                        <div class="book-img">
+                            <img src="https://img14.360buyimg.com/n7/jfs/t22720/73/1034241904/151911/8d39c1a7/5b4da4fdN7639b927.jpg">
+                        </div>
+                        <div class="book-name">浮生六记（2018新版！无删减彩色插图珍藏本)</div>
+                        <div class="book-author">杨绛 著</div>
+                        <div class="book-press">三联书店</div>
+                    </div>
+                    <div class="card__back">
+                        <div class="close-btn">
+                            <button class="layui-btn layui-btn-primary" id="c-btn">
+                                <i class="layui-icon">&#x1006;</i>
+                            </button>
+                        </div>
+                        <div class="book-img">
+                            <img src="https://img14.360buyimg.com/n7/jfs/t22720/73/1034241904/151911/8d39c1a7/5b4da4fdN7639b927.jpg">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
+
     <script>
-
-
-
-        layui.use('form', function () {
+        layui.use('form', function() {
             var form = layui.form;
         });
 
-        layui.use('element', function () {
+        layui.use('element', function() {
             var element = layui.element;
 
-            element.on('tab(demo)', function (data) {
+            element.on('tab(demo)', function(data) {
                 console.log(data);
             });
         });
-
-
     </script>
 </body>
 

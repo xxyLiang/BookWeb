@@ -14,19 +14,19 @@
             background-image: url(./img/bg.jpg);
             background-color: #333;
         }
-
+        
         #search-box {
             height: 42px;
             opacity: 0.9;
             font-size: 15px;
         }
-
+        
         .layui-input,
         #field,
         #search-box button {
             height: 42px;
         }
-
+        
         #search-box button i {
             /* 搜索按钮图片大小 */
             font-size: 20px;
@@ -73,28 +73,23 @@
     </form>
 
     <script>
-
-
-
-        layui.use('form', function () {
+        layui.use('form', function() {
             var form = layui.form;
         });
 
-        layui.use('element', function () {
+        layui.use('element', function() {
             var element = layui.element;
 
-            element.on('tab(demo)', function (data) {
+            element.on('tab(demo)', function(data) {
                 console.log(data);
             });
         });
 
-
-
-        layui.use(['jquery', 'layer'], function () {
+        layui.use(['jquery', 'layer'], function() {
             $ = layui.$;
             var layer = layui.layer;
 
-            $("#input-box").focus(function () {
+            $("#input-box").focus(function() {
                 // 动态加载div并显示
                 var ovr = $('<div></div>');
                 ovr.addClass('focus_ovr');
@@ -103,20 +98,21 @@
                 $(".focus_ovr").fadeToggle();
             });
 
-            $("#input-box").blur(function () {
+            $("#input-box").blur(function() {
                 // 动态隐藏div并删除  
                 $(".focus_ovr").fadeToggle();
-                setTimeout(function () { $("#ovr").remove(); }, 300);
+                setTimeout(function() {
+                    $("#ovr").remove();
+                }, 300);
             });
         });
 
-        window.onresize = function () {
+        window.onresize = function() {
             var w = window.innerWidth;
             var h = window.innerHeight;
             if (w / h < 16 / 9) {
                 document.body.style.backgroundSize = "auto 100%";
-            }
-            else {
+            } else {
                 document.body.style.backgroundSize = "100% auto";
             }
         }
