@@ -1,0 +1,101 @@
+html {
+    height: 100%;
+}
+
+body {
+    font-family: "Microsoft YaHei";
+    height: 100%;
+    min-width: 1080px;
+    min-height: 725px;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.layui-form {
+    position: absolute;
+    width: 35%;
+    min-width: 380px;
+    max-width: 520px;
+    left: 350px;
+    top: 250px;
+    z-index: 20;
+}
+
+#input-div {
+    width: calc(100% - 130px);
+    min-width: 250px;
+    margin-right: 0px;
+}
+
+#input-box {
+    border-style: none;
+    padding-left: 15px;
+    border-radius: 0;
+}
+
+#search-box {
+    width: 100%;
+    border: 1px solid rgb(150, 150, 150);
+    border-radius: 5px;
+    background-color: white;
+}
+
+#field {
+    /* 字段选择的大框 */
+    width: 88px;
+    margin-right: 0px;
+}
+
+.layui-input {
+    /* 字段选择的小框 */
+    border-width: 0 1px 0 0;
+    border-radius: 0;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-color: rgb(200, 200, 200);
+}
+
+.layui-form-select dl dd.layui-this,
+.layui-nav-tree .layui-nav-bar {
+    /* 主题颜色 */
+    background-color: #0E86E2 ;
+}
+
+#search-box button {
+    /* 搜索按钮 */
+    border-style: none;
+    border-radius: 0;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    padding: 0 0;
+    width: 42px;
+}
+
+#nav {
+    position: absolute;
+    width: 200px;
+    height: 100%;
+    min-height: 725px;
+    display: block;
+    background-color: rgba(0, 0, 0, 0.3);
+    padding-top: 25px;
+    padding-bottom: 25px;
+    z-index: 1;
+}
+
+#nav li * {
+    margin-left: 5px;
+    font-size: 15px;
+}
+
+.focus_ovr {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black; 
+    display: none;
+    z-index: 10;
+    opacity: 0.5;
+}

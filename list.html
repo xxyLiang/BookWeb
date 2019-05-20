@@ -11,25 +11,54 @@
 
     <style type="text/css">
         body {
-            background-image: url(./img/bg.jpg);
-            background-color: #333;
+            background-color: #F2F2F2;
         }
 
-        #search-box {
-            height: 42px;
-            opacity: 0.9;
-            font-size: 15px;
+        .layui-form {
+            position: absolute;
+            width: 380px;
+            left: 280px;
+            top: 30px;
         }
 
-        .layui-input,
-        #field,
-        #search-box button {
-            height: 42px;
+        #input-box {
+            font-size: 14px;
         }
 
-        #search-box button i {
-            /* 搜索按钮图片大小 */
-            font-size: 20px;
+        #nav {
+            background-color: #393D49;
+        }
+
+        .nav_sort {
+            display: block;
+            width: 920px;
+            position: absolute;
+            left: 280px;
+            top: 100px;
+        }
+
+        .nav_sort .sort {
+            display: block;
+            line-height: 34px;
+        }
+
+        .nav_sort .sort .left-padding{
+            float: left;
+            width: 100px;
+        }
+        
+        .nav_sort .sort .sort-content{
+            margin-left: 100px;
+            padding-left: 10px;
+            width: 810px;
+        }
+
+        #sc div {
+            display: inline-table;
+            width: 150px;
+            height: 34px;
+            margin-right: 10px;
+
         }
     </style>
 </head>
@@ -37,7 +66,7 @@
 <body>
 
     <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="nav" id="nav">
-        <li class="layui-nav-item"><a href="list.html">小说</a></li>
+        <li class="layui-nav-item"><a href="">小说</a></li>
         <li class="layui-nav-item"><a href="">文学</a></li>
         <li class="layui-nav-item"><a href="">青春文学</a></li>
         <li class="layui-nav-item"><a href="">传记</a></li>
@@ -72,6 +101,32 @@
         </div>
     </form>
 
+    <div class="nav_sort">
+        <span class="layui-breadcrumb" lay-separator=">" id="breadcrumb">
+            <a href="index.html">首页</a>
+            <a href="">国际新闻</a>
+            <a href="">亚太地区</a>
+            <a><cite>正文</cite></a>
+        </span>
+        <div><hr style="margin-top: 20px; margin-bottom: 10px;"></div>
+        <div class="sort">
+            <div class="left-padding"><span>分类：</span></div>
+            <div class="sort-content" id="sc">
+                <div>分类1aaaaaa</div>
+                <div>青少年励志/大学生指南</div>
+                <div>分类1ccccc</div>
+                <div>分类1ddd</div>
+                <div>分类1eee</div>
+                <div>微电子学、集成电路(IC)</div>
+                <div>分类1</div>
+                <div>分类1</div>
+                <div>分类1</div>
+                <div>分类1</div>
+            </div>
+        </div>
+        <div><hr style="margin-top: 10px; margin-bottom: 20px;"></div>
+    </div>
+
     <script>
 
 
@@ -89,37 +144,6 @@
         });
 
 
-
-        layui.use(['jquery', 'layer'], function () {
-            $ = layui.$;
-            var layer = layui.layer;
-
-            $("#input-box").focus(function () {
-                // 动态加载div并显示
-                var ovr = $('<div></div>');
-                ovr.addClass('focus_ovr');
-                ovr.attr('id', 'ovr');
-                $("form").after(ovr);
-                $(".focus_ovr").fadeToggle();
-            });
-
-            $("#input-box").blur(function () {
-                // 动态隐藏div并删除  
-                $(".focus_ovr").fadeToggle();
-                setTimeout(function () { $("#ovr").remove(); }, 300);
-            });
-        });
-
-        window.onresize = function () {
-            var w = window.innerWidth;
-            var h = window.innerHeight;
-            if (w / h < 16 / 9) {
-                document.body.style.backgroundSize = "auto 100%";
-            }
-            else {
-                document.body.style.backgroundSize = "100% auto";
-            }
-        }
     </script>
 </body>
 
