@@ -9,19 +9,23 @@
     <script src="./layui.js"></script>
 
     <style type="text/css">
+        html {
+            height: 100%;
+        }
+
         body {
             font-family: "Microsoft YaHei";
+            height: 100%;
             min-width: 1080px;
-            min-height: 900px;
-            background-image: url(./img/bg.jpg);
+            min-height: 725px;
+            background: url(./img/bg.jpg) no-repeat;
             background-size: cover;
-            background-repeat: no-repeat;
             background-color: #333;
         }
         
         .layui-form {
             position: absolute;
-            width: 30%;
+            width: 35%;
             min-width: 380px;
             max-width: 573px;
             left: 350px;
@@ -89,11 +93,13 @@
         
         #nav {
             position: absolute;
+            width: 200px;
             height: 100%;
-            min-height: 700px;
-            display: inline-block;
+            min-height: 725px;
+            display: block;
             background-color: rgba(0, 0, 0, 0.3);
             padding-top: 25px;
+            padding-bottom: 25px;
             z-index: 1;
         }
         
@@ -155,6 +161,9 @@
     </form>
 
     <script>
+
+        
+
         layui.use('form', function() {
             var form = layui.form;
         });
@@ -166,11 +175,13 @@
                 console.log(data);
             });
         });
+
         
+
         layui.use(['jquery', 'layer'], function(){ 
-            var $ = layui.$,
-            layer = layui.layer;
-        
+            $ = layui.$;
+            var layer = layui.layer;
+
             $("#input-box").focus(function(){
                 // 动态加载div并显示
                 var ovr=$('<div></div>'); 
@@ -186,6 +197,19 @@
                 setTimeout(function () { $("#ovr").remove(); }, 300);
             });
         });
+
+        // window.onresize = function(){
+        //     var w = window.innerWidth;
+        //     var h = window.innerHeight;
+        //     if (w/h < 16/9)
+        //     {
+        //         document.body.style.backgroundSize = "auto 100%";
+        //     }
+        //     else
+        //     {
+        //         document.body.style.backgroundSize = "100% auto";
+        //     }
+        // }
         </script>
 </body>
 
