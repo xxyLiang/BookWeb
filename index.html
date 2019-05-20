@@ -27,7 +27,7 @@
             position: absolute;
             width: 35%;
             min-width: 380px;
-            max-width: 573px;
+            max-width: 520px;
             left: 350px;
             top: 250px;
             z-index: 20;
@@ -198,18 +198,18 @@
             });
         });
 
-        // window.onresize = function(){
-        //     var w = window.innerWidth;
-        //     var h = window.innerHeight;
-        //     if (w/h < 16/9)
-        //     {
-        //         document.body.style.backgroundSize = "auto 100%";
-        //     }
-        //     else
-        //     {
-        //         document.body.style.backgroundSize = "100% auto";
-        //     }
-        // }
+        window.onresize = function(){
+            var w = window.innerWidth;
+            var h = window.innerHeight;
+            if (w/h < 16/9)
+            {
+                document.body.style.backgroundSize = "auto 100%";
+            }
+            else
+            {
+                document.body.style.backgroundSize = "100% auto";
+            }
+        }
         </script>
 </body>
 
