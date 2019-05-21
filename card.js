@@ -1,11 +1,5 @@
 layui.use(['jquery', 'layer'], function() {
-    var $ = layui.$,
-        layer = layui.layer;
-
-    $("#c-btn").click(function() {
-        $(window).trigger("click");
-        alert("s");
-    });
+    var $ = layui.$;
 
     var Flipper = function() {
         var card = $('.card');
@@ -46,6 +40,7 @@ layui.use(['jquery', 'layer'], function() {
                 '-webkit-transform': 'none',
                 '-ms-transform': 'none'
             }).removeClass('active');
+            return false;
         };
         var bindActions = function() {
             card.on('click', flip);

@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="./css/ind.css">
     <script src="layui.js"></script>
     <script src="card.js"></script>
-
+<!-- https://www.html5tricks.com/css3-3d-card-button.html -->
     <style type="text/css">
         body {
             background-color: #F2F2F2;
@@ -83,13 +83,6 @@
             font-size: 13px;
         }
         
-        .book-img {
-            display: inline-block;
-            width: 100%;
-            height: 200px;
-            margin-bottom: 20px;
-        }
-        
         .book-img img {
             width: 200px;
             height: 200px;
@@ -97,7 +90,7 @@
         }
         
         .book-name {
-            padding: 0 0 10px 5px;
+            margin: 20px 0 10px 5px;
             /* 只显示2行 */
             overflow: hidden;
             text-overflow: ellipsis;
@@ -107,35 +100,32 @@
         }
         
         .book-author {
-            padding: 0 0 10px 5px;
+            margin: 0 0 10px 5px;
         }
         
         .book-press {
-            padding: 0 0 0 5px;
+            margin: 0 0 0 5px;
             font-size: 12px;
             color: grey;
         }
         
-        .close-btn {
-            position: absolute;
-            top: 0;
-            right: 0;
+        #detail-img {
+            width: 200px;
+            height: 200px;
+            margin: 10px auto 0 auto;
         }
-        
-        .close-btn button {
-            width: 30px;
-            height: 30px;
-            padding: 0;
-            border-color: white;
+
+        .book-discription {
+            margin: 15px 0 10px 5px;
+            color:navy;
         }
-        
-        .close-btn .layui-icon {
-            position: absolute;
-            top: 6px;
-            left: 5px;
-            font-size: 20px;
-            line-height: 20px;
-            margin: 0;
+
+        .buttons button {
+            display: inline-block;
+            width: 80px;
+            margin-right: 30px;
+            padding: auto;
+            z-index: 10;
         }
     </style>
 </head>
@@ -202,6 +192,8 @@
                 <div>分类1</div>
                 <div>分类1</div>
                 <div>分类1</div>
+            <a target="_blank" style="z-index: 999;" href="https://item.jd.com/12405244.html">前往购买
+
             </div>
             <div>
                 <hr style="margin-top: 0; margin-bottom: 20px;">
@@ -215,22 +207,30 @@
                         <div class="book-img">
                             <img src="https://img14.360buyimg.com/n7/jfs/t22720/73/1034241904/151911/8d39c1a7/5b4da4fdN7639b927.jpg">
                         </div>
-                        <div class="book-name">浮生六记（2018新版！无删减彩色插图珍藏本)</div>
+                        <div class="book-name">浮生六记（2018新版！无删减彩色插图珍藏本)浮生六记（2018新版！无删减彩色插图珍藏本)</div>
                         <div class="book-author">杨绛 著</div>
                         <div class="book-press">三联书店</div>
                     </div>
                     <div class="card__back">
-                        <div class="close-btn">
-                            <button class="layui-btn layui-btn-primary" id="c-btn">
-                                <i class="layui-icon">&#x1006;</i>
-                            </button>
-                        </div>
-                        <div class="book-img">
+                        <div class="book-img" id="detail-img">
                             <img src="https://img14.360buyimg.com/n7/jfs/t22720/73/1034241904/151911/8d39c1a7/5b4da4fdN7639b927.jpg">
+                        </div>
+                        <div class="book-id" style="display: none">12405244</div>
+                        <div class="book-name" id="book-name-back"><b>浮生六记（2018新版！无删减彩色插图珍藏本)</b></div>
+                        <div class="book-author">杨绛 著</div>
+                        <div class="book-discription">&emsp;&emsp;至真至美至情至性的中国古典爱情范本！让年轻人正确认识爱情和对待生活！唯美国画配图，名家详释精注，无障碍阅读！
+                            林语堂、俞平伯、曹聚仁等推崇备至，汪涵、贾平凹力荐！</div>
+                        <div class="buttons">
+                            <a target="_blank" href="https://item.jd.com/12405244.html">前往购买
+                                <!-- <button class="layui-btn layui-btn-primary"></button> -->
+                            </a>
+                            <button class="layui-btn layui-btn-primary">修改内容</button>
+                            <button class="layui-btn layui-btn-primary">删除书本</button>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 
@@ -247,6 +247,7 @@
                 console.log(data);
             });
         });
+
     </script>
 </body>
 
