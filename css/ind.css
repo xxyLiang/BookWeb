@@ -103,8 +103,8 @@ body {
 .card {
     float: left;
     position: relative;
-    width: 240px;
-    height: 310px;
+    width: 242px;
+    height: 332px;
     margin: 0 30px 30px 0;
     -webkit-perspective: 1000;
     perspective: 1000;
@@ -157,7 +157,7 @@ body {
     -ms-flex-pack: center; */
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
     width: 350px;
-    height: 500px;
+    /* height: 500px; */
     line-height: 20px;
 }
 
