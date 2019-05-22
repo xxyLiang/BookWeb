@@ -96,20 +96,31 @@ body {
 }
 
 .book-list {
-    display: block;
+    display: inline-block;
     width: 100%;
     font-size: 13px;
+}
+
+.book-img {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto 0 auto;
 }
 
 .book-img img {
     width: 200px;
     height: 200px;
-    margin: 0 10px 0 10px;
+}
+
+#detail-img {
+    margin: 15px auto 0 auto;
 }
 
 .book-name {
     margin: 20px 0 10px 0;
-    padding-left: 6px;
+}
+
+.card__front .book-name {
     /* 只显示2行 */
     overflow: hidden;
     text-overflow: ellipsis;
@@ -121,36 +132,25 @@ body {
 .book-author,
 .book-id {
     margin-bottom: 10px;
-    padding-left: 6px;
 }
 
 .book-press {
-    margin: 0 0 0 6px;
-    font-size: 12px;
     color: grey;
-}
-
-#detail-img {
-    width: 200px;
-    height: 200px;
-    margin: 20px auto 0 auto;
 }
 
 .category-lable {
     margin-bottom: 10px;
-    padding-left: 6px;
     font-size: 13px;
     visibility: visible;
 }
 
 .book-discription {
-    margin: 14px 0 20px 0;
-    padding-left: 6px;
+    margin: 14px 0 10px 0;
     color: navy;
 }
 
 .buttons {
-    margin: 0 20px 10px 20px;
+    margin: 10px 10px 10px 10px;
 }
 
 .buttons button {
@@ -196,7 +196,7 @@ body {
     float: left;
     position: relative;
     width: 242px;
-    height: 332px;
+    height: 342px;
     margin: 0 30px 30px 0;
     -webkit-perspective: 1000;
     perspective: 1000;
@@ -207,6 +207,7 @@ body {
     transform-style: preserve-3d;
     -webkit-transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
     transition: all 1s cubic-bezier(0.23, 1, 0.32, 1);
+    
 }
 
 .card__front,
@@ -216,7 +217,7 @@ body {
     backface-visibility: hidden;
     top: 0;
     left: 0;
-    padding: 20px 10px 20px 10px;
+ 
 }
 
 .card__front {
@@ -225,16 +226,17 @@ body {
     transform: rotateY(0);
     z-index: 2;
     overflow: hidden;
-    width: 220px;
-    height: 320px;
+    width: 210px;
+    height: 310px;
     background-color: white;
     border: 1px solid rgb(150, 150, 150);
     box-shadow: 0 0 8px #666666;
+    padding: 15px 15px 15px 15px;
 }
 
 .card__back {
-    -webkit-transform: rotateY(180deg) scale(1);
-    transform: rotateY(180deg) scale(1);
+    -webkit-transform: rotateY(180deg);
+    transform: rotateY(180deg);
     background-color: white;
     display: -webkit-box;
     display: -webkit-flex;
@@ -243,13 +245,14 @@ body {
     -webkit-flex-flow: column wrap;
     -ms-flex-flow: column wrap;
     flex-flow: column wrap;
-    /* -webkit-box-align: center;
+    -webkit-box-align: center;
     -ms-flex-align: center;
     -webkit-box-pack: center;
-    -ms-flex-pack: center; */
+    -ms-flex-pack: center;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-    width: 350px;
+    width: 330px;
     line-height: 20px;
+    padding: 15px 20px 15px 20px;
 }
 
 @media (max-width: 700px) {

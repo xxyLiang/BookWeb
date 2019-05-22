@@ -49,29 +49,38 @@
     </style>
 </head>
 
-<body>
+
 <% 
     //初始化
 	String c = request.getParameter("field");
-    int choose = Integer.parseInt(c);	
-	String value = request.getParameter("value");	
+    int choose = Integer.parseInt(c);
+	String value = request.getParameter("value");
+    int page_num = 1;
+    try{
+        String p = request.getParameter("page_num");
+        page_num = Integer.parseInt(p);
+    } catch (Exception e) {}
+
+    int start = 30 * (page_num - 1);
 	
 	Context initContext = new InitialContext();
 	Context envContext  = (Context)initContext.lookup("java:/comp/env");
 	DataSource ds = (DataSource)envContext.lookup("jdbc/book"); 
 	Connection conn = null;
-	Statement stmt = null;
+    Statement stmt = null;
 	ResultSet rs = null;
 	String[] field = {"book_name", "author", "press"};
     String[] field_c = {"书名", "作者", "出版社"};
 
     ArrayList book_list = new ArrayList();
     int book_number = 0;
+    int total_book_number = 0;
 
 	try {
 		conn = ds.getConnection();			
 		stmt = conn.createStatement();
-        rs = stmt.executeQuery("select * from books where "+ field[choose] +" like '%" + value +"%'");		
+		rs = stmt.executeQuery("select * from books where "+ field[choose] +" like '%" + value + "%' limit "+start+",30");
+
         while (rs.next()) {
             Map<String, String> item = new HashMap<String, String>();
             item.put("id", rs.getString("id"));
@@ -85,6 +94,12 @@
             item.put("url", rs.getString("detail_url"));
             book_list.add(item);
         }
+
+        rs = stmt.executeQuery("select count(*) from books where "+ field[choose] +" like '%" + value + "%'");
+        if(rs.next()) {
+            total_book_number = rs.getInt(1);
+        }
+
         rs.close();
 	} catch (Exception e) {
 		throw e;
@@ -98,6 +113,9 @@
 		}
 	}
 %>
+
+
+<body>
     <%-- 导航栏 --%>
     <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="nav" id="nav">
         <li class="layui-nav-item"><a href="">小说</a></li>
@@ -143,12 +161,12 @@
             <a><cite><%=field_c[choose]%>：<%=value%></cite></a>
         </div>
         <div class="search-result">
-            <span>搜索到 <%=book_number%> 条记录</span>
+            <span>搜索到 <%=total_book_number%> 条记录</span>
         </div>
         <div style="margin-bottom: 30px;"><hr style="background-color: #cccccc;"></div>
 
         <%-- 搜索结果列表 --%>
-        <div class="book-list" id="b-list">
+        <div class="book-list">
 <%
         for(int i=0; i<book_number; i++)
         {
@@ -181,8 +199,7 @@
                             </button>
                         </div>
                         <div class="book-img" id="detail-img">
-                            <img
-                                src="<%=image%>">
+                            <img src="<%=image%>">
                         </div>
                         <div class="book-name" id="book-name-back"><b><%=name%></b></div>
                         <div class="book-author"><%=author%> 著</div>
@@ -208,31 +225,44 @@
                     </div>
                 </div>
             </div>
-        <% } %>
-            <div class='page-box'>
+        <% } %>  
         </div>
-
-        </div>
+        <div id='page-box'></div>
     </div>
 
+
+
     <script>
-        layui.use(['form', 'element', 'laypage'], function () {
+
+        layui.use(['form', 'element', 'laypage', 'jquery'], function () {
             var form = layui.form;
             var element = layui.element;
             element.on('tab(demo)', function (data) {
                 console.log(data);
             });
 
+            $ = layui.$;
+
             var laypage = layui.laypage;
             laypage.render({
                 elem: 'page-box',
-                count: <%=book_number%>,
-                limit: 30
+                count: <%=total_book_number%>,
+                limit: 30,
+                curr: <%=page_num%>,
+                layout: ['prev', 'page', 'next', 'skip'],
+                jump: function (obj, first) {
+                    if(!first){
+                        var url = "search.jsp?field=<%=c%>&value=<%=value%>&page_num=" + obj.curr;
+                        window.location.href = url;
+                }}
             });
+            if(<%=total_book_number%> <= 30){
+                document.getElementById('page-box').style.display="none";
+            }
+
         });
 
     </script>
-
 
 </body>
 </html>
