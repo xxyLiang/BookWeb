@@ -1,13 +1,13 @@
-// layui.use(['jquery', 'layer'], function() {
-//     var $ = layui.$;
+layui.use(['jquery', 'layer'], function () {
+    var $ = layui.$;
 
-    var Flipper = function() {
+    var Flipper = function () {
         var card = $('.card');
         var flipper = card.find('.card__flipper');
         var win = $(window);
 
-        var flip = function() {
-            var thisCard = $(this);
+        var flip = function () {
+            var thisCard = $(this).parent().parent();
             var thisFlipper = thisCard.find('.card__flipper');
             var offset = thisCard.offset();
             var xc = win.width() / 2;
@@ -31,7 +31,7 @@
             }).addClass('active');
             return false;
         };
-        var unflip = function(e) {
+        var unflip = function (e) {
             card.css({
                 'z-index': '1'
             }).removeClass('active');
@@ -41,11 +41,11 @@
                 '-ms-transform': 'none'
             }).removeClass('active');
         };
-        var bindActions = function() {
-            card.on('click', flip);
-            win.on('click', unflip);
+        var bindActions = function () {
+            $('.card__front').on('click', flip);
+            $('.close-btn').on('click', unflip);
         };
-        var init = function() {
+        var init = function () {
             bindActions();
         };
         return {
@@ -53,4 +53,4 @@
         };
     }();
     Flipper.init();
-// });
+});

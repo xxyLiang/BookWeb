@@ -54,7 +54,7 @@
         <li class="layui-nav-item"><a href="">电子与通信</a></li>
     </ul>
 
-    <form class="layui-form" action="search_page.jsp">
+    <form class="layui-form" action="search.jsp">
         <div class="layui-form-item" id="search-box">
             <div class="layui-input-inline" id="field">
                 <select name="field" lay-filter="field">
@@ -73,21 +73,16 @@
     </form>
 
     <script>
-        layui.use('form', function() {
+        layui.use(['form', 'element'], function () {
             var form = layui.form;
-        });
-
-        layui.use('element', function() {
             var element = layui.element;
-
-            element.on('tab(demo)', function(data) {
+            element.on('tab(demo)', function (data) {
                 console.log(data);
             });
         });
 
-        layui.use(['jquery', 'layer'], function() {
-            $ = layui.$;
-            var layer = layui.layer;
+        layui.use('jquery', function() {
+            var $ = layui.$;
 
             $("#input-box").focus(function() {
                 // 动态加载div并显示

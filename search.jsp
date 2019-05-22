@@ -1,5 +1,6 @@
-<!DOCTYPE html>
-
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*" %>
+<%@ page import="java.io.*"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 
 <head>
@@ -41,46 +42,58 @@
             top: 100px;
         }
 
-        .content .sort {
-            display: block;
-            max-width: 1200px;
-            line-height: 25px;
-            background-color: #E2E2E2;
-        }
-
-        .content .sort .left-padding {
-            float: left;
-            width: 50px;
-            margin: 10px 20px 0 20px;
-        }
-
-        .content .sort .sort-content {
-            margin-left: 120px;
-            padding: 10px 20px 10px 20px;
-            width: calc(100% - 140px);
-            background-color: #F2F2F2;
-        }
-
-        #sc div {
-            display: inline-block;
-            width: 150px;
-            height: 25px;
-            margin-right: 10px;
-        }
-
-        #sc div {
-            /* 放不下文字...表示 */
-            overflow: hidden;
-            word-break: keep-all;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-        }
-
     </style>
 </head>
 
 <body>
+<% 
+    //初始化
+	String c = request.getParameter("field");
+    int choose = Integer.parseInt(c);	
+	String value = request.getParameter("value");	
+	
+	Context initContext = new InitialContext();
+	Context envContext  = (Context)initContext.lookup("java:/comp/env");
+	DataSource ds = (DataSource)envContext.lookup("jdbc/book"); 
+	Connection conn = null;
+	Statement stmt = null;
+	ResultSet rs = null;
+	String[] field = {"book_name", "author", "press"};
 
+    ArrayList book_list = new ArrayList();
+    Map<String, String> item = new HashMap<String, String>();
+    int book_number = 0;
+
+	try {
+		conn = ds.getConnection();			
+		stmt = conn.createStatement();
+        rs = stmt.executeQuery("select * from books where "+ field[choose] +" like '%" + value +"%'");		
+        while (rs.next()) {
+            item.put("id", rs.getString("id"));
+            item.put("b_cate", rs.getString("b_cate"));
+            item.put("s_cate", rs.getString("s_cate"));
+            item.put("name", rs.getString("book_name"));
+            item.put("author", rs.getString("author"));
+            item.put("discription", rs.getString("discription"));
+            item.put("press", rs.getString("press"));
+            item.put("image", rs.getString("image"));
+            item.put("url", rs.getString("detail_url"));
+            book_list.add(item);
+        }
+        rs.close();
+	} catch (Exception e) {
+		throw e;
+	} finally {
+        book_number = book_list.size();
+		try {
+			if (stmt != null) stmt.close();
+			if (conn != null) conn.close();
+		} catch (Exception e) {
+			throw e;
+		}
+	}
+%>
+    <%-- 导航栏 --%>
     <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="nav" id="nav">
         <li class="layui-nav-item"><a href="">小说</a></li>
         <li class="layui-nav-item"><a href="">文学</a></li>
@@ -99,7 +112,8 @@
         <li class="layui-nav-item"><a href="">电子与通信</a></li>
     </ul>
 
-    <form class="layui-form" action="search.jsp">
+    <%-- 搜索框 --%>
+    <form class="layui-form" action="search_page.jsp">
         <div class="layui-form-item" id="search-box">
             <div class="layui-input-inline" id="field">
                 <select name="field" lay-filter="field">
@@ -118,6 +132,7 @@
     </form>
 
     <div class="content">
+        <%-- 面包屑 --%>
         <div class="layui-breadcrumb" lay-separator=">" id="breadcrumb">
             <a href="index.html">首页</a>
             <a href="">国际新闻</a>
@@ -125,35 +140,20 @@
             <a><cite>正文</cite></a>
         </div>
 
-        <div class="sort">
-            <div>
-                <hr style="margin-top: 20px; margin-bottom: 0;">
-            </div>
-            <div class="left-padding"><span>分类：</span></div>
-            <div class="sort-content" id="sc">
-                <div>分类1aaaaaa</div>
-                <div>青少年励志/大学生指南</div>
-                <div>分类1ccccc</div>
-                <div>分类1ddd</div>
-                <div>分类1eee</div>
-                <div>微电子学、集成电路(IC)</div>
-                <div>分类1</div>
-                <div>分类1</div>
-                <div>分类1</div>
-                <div>分类1</div>
-            </div>
-            <div>
-                <hr style="margin-top: 0; margin-bottom: 20px;">
-            </div>
-        </div>
-
+        <%-- 搜索结果列表 --%>
         <div class="book-list">
+
+<%
+        for(int i=0; i<book_number; i++)
+        {
+            Map<String, String> book = new HashMap<String, String>();
+            book = book_list.get(i);
+%>
             <div class="book card">
                 <div class="card__flipper">
                     <div class="card__front">
                         <div class="book-img">
-                            <img
-                                src="https://img14.360buyimg.com/n7/jfs/t22720/73/1034241904/151911/8d39c1a7/5b4da4fdN7639b927.jpg">
+                            <img src="<%=book.get("image")%>">
                         </div>
                         <div class="book-name">浮生六记（2018新版！无删减彩色插图珍藏本)</div>
                         <div class="book-author">杨绛 著</div>
@@ -192,19 +192,12 @@
                     </div>
                 </div>
             </div>
+        }
+%>
         </div>
     </div>
 
 
-    <script>
-        layui.use(['form', 'element'], function () {
-            var form = layui.form;
-            var element = layui.element;
-            element.on('tab(demo)', function (data) {
-                console.log(data);
-            });
-        });
-    </script>
-</body>
 
+</body>
 </html>
