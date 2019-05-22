@@ -147,17 +147,32 @@
             </div>
         </div>
 
+            <%-- 搜索结果列表 --%>
         <div class="book-list">
+<%
+        for(int i=0; i<book_number; i++)
+        {
+            Map<String, String> book = new HashMap<String, String>();
+            book = (Map<String, String>) book_list.get(i);
+            String id = book.get("id");
+            String b_cate = book.get("b_cate");
+            String s_cate = book.get("s_cate");
+            String name = book.get("name"); 
+            String author = book.get("author"); 
+            String discription = book.get("discription"); 
+            String press = book.get("press"); 
+            String image = book.get("image"); 
+            String url = book.get("url"); 
+%>
             <div class="book card">
                 <div class="card__flipper">
                     <div class="card__front">
                         <div class="book-img">
-                            <img
-                                src="https://img14.360buyimg.com/n7/jfs/t22720/73/1034241904/151911/8d39c1a7/5b4da4fdN7639b927.jpg">
+                            <img src="<%=image%>">
                         </div>
-                        <div class="book-name">浮生六记（2018新版！无删减彩色插图珍藏本)</div>
-                        <div class="book-author">杨绛 著</div>
-                        <div class="book-press">三联书店</div>
+                        <div class="book-name"><%=name%></div>
+                        <div class="book-author"><%=author%> 著</div>
+                        <div class="book-press"><%=press%></div>
                     </div>
                     <div class="card__back">
                         <div class="close-btn">
@@ -167,23 +182,24 @@
                         </div>
                         <div class="book-img" id="detail-img">
                             <img
-                                src="https://img14.360buyimg.com/n7/jfs/t22720/73/1034241904/151911/8d39c1a7/5b4da4fdN7639b927.jpg">
+                                src="<%=image%>">
                         </div>
-                        <div class="book-name" id="book-name-back"><b>浮生六记（2018新版！无删减彩色插图珍藏本)</b></div>
-                        <div class="book-author">杨绛 著</div>
+                        <div class="book-name" id="book-name-back"><b><%=name%></b></div>
+                        <div class="book-author"><%=author%> 著</div>
                         <div class="book-id">
                             <span>图书编码：</span>
-                            <span>12405244</span>
+                            <span><%=id%></span>
                         </div>
-                        <div class="layui-breadcrumb category-lable" lay-separator=">">
+                        <div class="layui-breadcrumb category-lable" lay-separator=" — ">
                             <span>分类：</span>
-                            <a href="">小说</a>
-                            <a href="">中国现代小说</a>
+                            <a href=""><%=b_cate%></a>
+                            <a href=""><%=s_cate%></a>
                         </div>
-                        <div class="book-discription">&emsp;&emsp;至真至美至情至性的中国古典爱情范本！让年轻人正确认识爱情和对待生活！唯美国画配图，名家详释精注，无障碍阅读！
-                            林语堂、俞平伯、曹聚仁等推崇备至，汪涵、贾平凹力荐！</div>
+                    <% if(discription != null && discription.length()>0) { %>
+                        <div class="book-discription">&emsp;&emsp;<%=discription%></div>
+                    <% } %>
                         <div class="buttons">
-                            <a target="_blank" href="https://item.jd.com/12405244.html">
+                            <a target="_blank" href="<%=url%>">
                                 <button class="layui-btn layui-btn-primary">前往购买</button>
                             </a>
                             <button class="layui-btn layui-btn-primary">修改内容</button>
@@ -192,6 +208,7 @@
                     </div>
                 </div>
             </div>
+        <% } %>
         </div>
     </div>
 
