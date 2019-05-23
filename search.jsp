@@ -118,21 +118,21 @@
 <body>
     <%-- 导航栏 --%>
     <ul class="layui-nav layui-nav-tree layui-nav-side" lay-filter="nav" id="nav">
-        <li class="layui-nav-item"><a href="">小说</a></li>
-        <li class="layui-nav-item"><a href="">文学</a></li>
-        <li class="layui-nav-item"><a href="">青春文学</a></li>
-        <li class="layui-nav-item"><a href="">传记</a></li>
-        <li class="layui-nav-item"><a href="">励志与成功</a></li>
-        <li class="layui-nav-item"><a href="">管理</a></li>
-        <li class="layui-nav-item"><a href="">经济</a></li>
-        <li class="layui-nav-item"><a href="">金融与投资</a></li>
-        <li class="layui-nav-item"><a href="">历史</a></li>
-        <li class="layui-nav-item"><a href="">心理学</a></li>
-        <li class="layui-nav-item"><a href="">政治/军事</a></li>
-        <li class="layui-nav-item"><a href="">社会科学</a></li>
-        <li class="layui-nav-item"><a href="">科普读物</a></li>
-        <li class="layui-nav-item"><a href="">计算机与互联网</a></li>
-        <li class="layui-nav-item"><a href="">电子与通信</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=小说&s_cate=">小说</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=文学&s_cate=">文学</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=青春文学&s_cate=">青春文学</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=传记&s_cate=">传记</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=励志与成功&s_cate=">励志与成功</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=管理&s_cate=">管理</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=经济&s_cate=">经济</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=金融与投资&s_cate=">金融与投资</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=历史&s_cate=">历史</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=心理学&s_cate=">心理学</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=政治/军事&s_cate=">政治/军事</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=社会科学&s_cate=">社会科学</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=科普读物&s_cate=">科普读物</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=计算机与互联网&s_cate=">计算机与互联网</a></li>
+        <li class="layui-nav-item"><a href="list.jsp?b_cate=电子与通信&s_cate=">电子与通信</a></li>
     </ul>
 
     <%-- 搜索框 --%>
@@ -209,8 +209,8 @@
                         </div>
                         <div class="layui-breadcrumb category-lable" lay-separator=" — ">
                             <span>分类：</span>
-                            <a href=""><%=b_cate%></a>
-                            <a href=""><%=s_cate%></a>
+                            <a href="list.jsp?b_cate=<%=b_cate%>&s_cate="><%=b_cate%></a>
+                            <a href="list.jsp?b_cate=<%=b_cate%>&s_cate=<%=s_cate%>"><%=s_cate%></a>
                         </div>
                     <% if(discription != null && discription.length()>0) { %>
                         <div class="book-discription">&emsp;&emsp;<%=discription%></div>
