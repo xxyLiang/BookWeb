@@ -1,5 +1,4 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*" %>
-<%@ page import="java.io.*"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 
@@ -10,6 +9,15 @@
     <link rel="stylesheet" href="./css/ind.css">
     <script src="layui.js"></script>
     <script src="card.js"></script>
+    <script>
+        layui.use(['form', 'element'], function () {
+            var form = layui.form;
+            var element = layui.element;
+            element.on('tab(demo)', function (data) {
+                console.log(data);
+            }); 
+        });
+    </script>
     <style type="text/css">
         body {
             background-color: #F2F2F2;
@@ -30,16 +38,6 @@
         #nav {
             position: fixed;
             background-color: #393D49;
-        }
-
-        .content {
-            display: block;
-            width: 72%;
-            min-width: 820px;
-            max-width: 1360px;
-            position: absolute;
-            left: 280px;
-            top: 100px;
         }
 
         #breadcrumb {
@@ -234,14 +232,8 @@
 
     <script>
 
-        layui.use(['form', 'element', 'laypage', 'jquery'], function () {
-            var form = layui.form;
-            var element = layui.element;
-            element.on('tab(demo)', function (data) {
-                console.log(data);
-            });
-
-            $ = layui.$;
+        layui.use(['laypage', 'jquery'], function () {
+            var $ = layui.$;
 
             var laypage = layui.laypage;
             laypage.render({
