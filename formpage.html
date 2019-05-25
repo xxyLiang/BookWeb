@@ -1,5 +1,6 @@
-<!-- <%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*" %> -->
 <!DOCTYPE html>
+<!-- <%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*" %> -->
+
 <html>
 
 <head>
@@ -7,16 +8,19 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/layui.css">
     <script src="layui.js"></script>
-    <script src="sortlist.js"></script>
-    <script>
-        layui.use('form', function () {
-            var form = layui.form;
-        });
-    </script>
+    <script src="formsetting.js"></script>
     <style type="text/css">
+        body {
+            font-family: "Microsoft YaHei";
+        }
+
         .layui-form {
             width: 600px;
             margin: 50px auto 0 100px;
+        }
+
+        .layui-form-select dl dd.layui-this {
+            background-color: #0E86E2;
         }
     </style>
 </head>
@@ -24,43 +28,28 @@
 <body>
     <form class="layui-form" action="">
         <div class="layui-form-item">
-            <label class="layui-form-label">书名</label>
+            <label class="layui-form-label"><b>书名</b></label>
             <div class="layui-input-block">
                 <input type="text" name="name" required autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">作者</label>
+            <label class="layui-form-label"><b>作者</b></label>
             <div class="layui-input-block">
                 <input type="text" name="author" required autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">出版社</label>
+            <label class="layui-form-label"><b>出版社</b></label>
             <div class="layui-input-block">
                 <input type="text" name="press" required autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label">分类</label>
+            <label class="layui-form-label"><b>分类</b></label>
             <div class="layui-input-inline" style="margin-right: 20px;">
-                <select name="b_cate" lay-verify="required" id="b_cate" onchange="getList()">
+                <select name="b_cate" lay-verify="required" id="b_cate" lay-filter="b_cate">
                     <option value=""></option>
-                    <option value="小说">小说</option>
-                    <option value="文学">文学</option>
-                    <option value="青春文学">青春文学</option>
-                    <option value="传记">传记</option>
-                    <option value="励志与成功">励志与成功</option>
-                    <option value="管理">管理</option>
-                    <option value="经济">经济</option>
-                    <option value="金融与投资">金融与投资</option>
-                    <option value="历史">历史</option>
-                    <option value="心理学">心理学</option>
-                    <option value="政治/军事">政治/军事</option>
-                    <option value="社会科学">社会科学</option>
-                    <option value="科普读物">科普读物</option>
-                    <option value="计算机与互联网">计算机与互联网</option>
-                    <option value="电子与通信">电子与通信</option>
                 </select>
             </div>
             <div class="layui-input-inline">
@@ -69,10 +58,25 @@
                 </select>
             </div>
         </div>
-
+        <div class="layui-form-item">
+            <button type="button" class="layui-btn" id="upload">
+                <i class="layui-icon">&#xe67c;</i>上传图片
+            </button>
+        </div>
+        <div class="layui-form-item">
+                <label class="layui-form-label"><b>购买链接</b></label>
+                <div class="layui-input-block">
+                    <input type="text" name="url" required autocomplete="off" class="layui-input">
+                </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label"><b>描述</b></label>
+            <div class="layui-input-block">
+                <textarea name="desc" placeholder="请输入内容" class="layui-textarea"></textarea>
+            </div>
+        </div>
     </form>
 
-    <scrpit>
-
-    </scrpit>
 </body>
+
+</html>

@@ -18,18 +18,46 @@ cate_arr["科普读物"] = ['人类故事', '儿童科普', '地球科学', '天
 cate_arr["计算机与互联网"] = ['IT人文/互联网', '专用软件', '人工智能', '信息系统', '办公软件', '单片机与嵌入式', '图形图像/多媒体', '大数据与云计算', '操作系统', '数据库', '数码产品攻略', '新手学电脑', '游戏开发', '电子商务', '硬件与维护', '移动开发', '编程语言与程序设计', '网络与通信', '网页制作/Web技术', '考试认证', '计算机安全', '计算机工具书', '计算机控制与仿真', '计算机理论、基础知识', '软件工程及软件方法学', '辅助设计与工程计算'];
 cate_arr["电子与通信"] = ['光电子技术、激光技术', '半导体技术', '基本电子电路', '基础与理论', '广播', '微电子学、集成电路(IC)', '无线电导航', '无线电设备、电信设备', '无线通信', '电子元件、组件', '电子对抗（干扰及抗干扰）', '电视', '真空电子技术', '移动通信', '通信', '雷达'];
 
-function getList(){
-    var b_obj = document.getElementById("b_cate");
-    var s_obj = document.getElementById("s_cate");
-    var index = b_obj.selectedIndex;
-    
-    var value = b_obj[index].value;
-    
-    var s_list = cate_arr[value];
+layui.use(['form', 'jquery'], function () {
+    var form = layui.form;
+    var $ = layui.$;
 
-    s_obj.options.length = 0;
-    for(var i=0; i<s_list.length; i++)
-    {
-        s_obj.options.add(new Option(s_list[i], s_list[i]));
-    } 
-}
+    $(document).ready(function () {
+        b = document.getElementById("b_cate");
+        for (var i = 0; i < cate_list.length; i++) {
+            b.options.add(new Option(cate_list[i], cate_list[i]));
+        }
+        form.render('select');
+    });
+
+    form.on('select(b_cate)', function () {
+        var b_obj = document.getElementById("b_cate");
+        var s_obj = document.getElementById("s_cate");
+        var index = b_obj.selectedIndex;
+
+        var value = b_obj[index].value;
+
+        var s_list = cate_arr[value];
+        console.log(s_list);
+        s_obj.options.length = 1;
+        for (var i = 0; i < s_list.length; i++) {
+            s_obj.options.add(new Option(s_list[i], s_list[i]));
+        }
+        form.render('select');
+    });
+});
+
+layui.use('upload', function () {
+    var upload = layui.upload;
+
+    var uploadInst = upload.render({
+        elem: '#upload' //绑定元素
+        , url: './img/' //上传接口
+        , done: function (res) {
+            console.log(res.url);
+        }
+        , error: function () {
+            alert("error");
+        }
+    });
+});
