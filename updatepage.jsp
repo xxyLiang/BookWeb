@@ -22,6 +22,19 @@
         .layui-form-select dl dd.layui-this {
             background-color: #0E86E2;
         }
+        
+        .layui-input:hover,
+        .layui-textarea:hover {
+            border-color: #66afe9 !important;
+        }
+
+        .layui-input:focus,
+        .layui-textarea:focus {
+            border-color: #66afe9 !important;
+            outline: 0;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+            box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
+        }
     </style>
 </head>
 

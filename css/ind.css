@@ -16,7 +16,7 @@ body {
     width: 35%;
     min-width: 380px;
     max-width: 520px;
-    left: 350px;
+    left: 400px;
     top: 250px;
     z-index: 20;
 }
@@ -141,7 +141,8 @@ body {
     margin-right: 10px;
 }
 
-#sc div {
+#sc div,
+.card__front .book-author {
     /* 放不下文字...表示 */
     overflow: hidden;
     word-break: keep-all;

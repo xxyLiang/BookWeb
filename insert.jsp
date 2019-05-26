@@ -39,7 +39,7 @@
 			psmt.setString(7, press);
 		}
 		else{
-			psmt = conn.prepareStatement("update books set b_cate=?, s_cate=?, book_name=?, author=?, discription=?, press=? where id=?");
+			psmt = conn.prepareStatement("update books set b_cate=?, s_cate=?, book_name=?, author=?, discription=?, press=?, user_define=1 where id=?");
 			psmt.setString(1, b_cate);
 			psmt.setString(2, s_cate);
 			psmt.setString(3, name);
