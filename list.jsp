@@ -25,11 +25,12 @@
             min-width: 1200px;
         }
 
+
         .layui-form {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 380px;
-            left: 280px;
-            top: 30px;
         }
 
         #input-box {
@@ -76,18 +77,16 @@
             psmt.setString(1, b);
             psmt.setString(2, s);
             psmt.setInt(3, start);
-            psmt2 = conn.prepareStatement("select count(*) from books where b_cate=? and s_cate=? limit ?,30");
+            psmt2 = conn.prepareStatement("select count(*) from books where b_cate=? and s_cate=?");
             psmt2.setString(1, b);
             psmt2.setString(2, s);
-            psmt2.setInt(3, start);
         }
         else{
             psmt = conn.prepareStatement("select * from books where b_cate=? limit ?,30");
             psmt.setString(1, b);
             psmt.setInt(2, start);
-            psmt2 = conn.prepareStatement("select count(*) from books where b_cate=? limit ?,30");
+            psmt2 = conn.prepareStatement("select count(*) from books where b_cate=?");
             psmt2.setString(1, b);
-            psmt2.setInt(2, start);
         }
 		rs = psmt.executeQuery();
 
@@ -151,23 +150,30 @@
         <li class="layui-nav-item"><a href="list.jsp?b_cate=电子与通信&s_cate=">电子与通信</a></li>
     </ul>
 
-    <form class="layui-form" action="search.jsp">
-        <div class="layui-form-item" id="search-box">
-            <div class="layui-input-inline" id="field">
-                <select name="field" lay-filter="field">
-                    <option value="0">书名</option>
-                    <option value="1">作者</option>
-                    <option value="2">出版社</option>
-                </select>
+    <div class="heading">
+        <form class="layui-form" action="search.jsp">
+            <div class="layui-form-item" id="search-box">
+                <div class="layui-input-inline" id="field">
+                    <select name="field" lay-filter="field">
+                        <option value="0">书名</option>
+                        <option value="1">作者</option>
+                        <option value="2">出版社</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline" id="input-div">
+                    <input type="text" name="value" title="输入你的检索词" required class="layui-input" id="input-box">
+                </div>
+                <button class="layui-btn layui-btn-primary" type="submit">
+                    <i class="layui-icon">&#xe615;</i>
+                </button>
             </div>
-            <div class="layui-input-inline" id="input-div">
-                <input type="text" name="value" title="输入你的检索词" required class="layui-input" id="input-box">
-            </div>
-            <button class="layui-btn layui-btn-primary" type="submit">
-                <i class="layui-icon">&#xe615;</i>
-            </button>
+        </form> 
+        <div class="layui-inline" style="float:right; margin-right: 20px;">
+            <a href="insertpage.html">
+                <button class="layui-btn" type="button">添加书本</button>
+            </a>
         </div>
-    </form>
+    </div>
 
     <div class="content">
         <div class="layui-breadcrumb" lay-separator=">" id="breadcrumb">
@@ -180,11 +186,11 @@
         <div class="search-result">
             <span>搜索到 <%=total_book_number%> 条记录</span>
         </div>
-
+        <div>
+            <hr style="margin-top: 20px; margin-bottom: 0;">
+        </div>
         <div class="sort">
-            <div>
-                <hr style="margin-top: 20px; margin-bottom: 0;">
-            </div>
+
             <div class="left-padding"><span>分类：</span></div>
             <div class="sort-content" id="sc">
             <%
@@ -195,11 +201,10 @@
                 <div><a href="list.jsp?b_cate=<%=b%>&s_cate=<%=cate%>"><%=cate%></a></div>
             <% } %>
             </div>
-            <div>
-                <hr style="margin-top: 0; margin-bottom: 20px;">
-            </div>
         </div>
-
+        <div>
+            <hr style="margin-top: 0; margin-bottom: 20px;">
+        </div>
             <%-- 搜索结果列表 --%>
         <div class="book-list">
 <%
@@ -255,8 +260,12 @@
                             <a target="_blank" href="<%=url%>">
                                 <button class="layui-btn layui-btn-primary">前往购买</button>
                             </a>
-                            <button class="layui-btn layui-btn-primary">修改内容</button>
-                            <button class="layui-btn layui-btn-primary">删除书本</button>
+                            <a href="updatepage.jsp?id=<%=id%>&b_cate=<%=b_cate%>&s_cate=<%=s_cate%>">
+                                <button class="layui-btn layui-btn-primary">修改内容</button>
+                            </a>
+                            <a href="delete.jsp?id=<%=id%>&b_cate=<%=b_cate%>&s_cate=<%=s_cate%>" onclick="if(confirm('确定删除?')==false) return false;">
+                                <button class="layui-btn layui-btn-primary">删除书本</button>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -280,7 +289,7 @@
                 layout: ['prev', 'page', 'next', 'skip'],
                 jump: function (obj, first) {
                     if(!first){
-                        var url = "search.jsp?b_cate=<%=b%>&s_cate=<%=s%>&page_num=" + obj.curr;
+                        var url = "list.jsp?b_cate=<%=b%>&s_cate=<%=s%>&page_num=" + obj.curr;
                         window.location.href = url;
                 }}
             });

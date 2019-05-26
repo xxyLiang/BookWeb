@@ -1,6 +1,6 @@
-var cate_list = ['传记', '励志与成功', '历史', '小说', '心理学', '政治/军事', '文学', '电子与通信', '社会科学', '科普读物', '管理', '经济', '计算机与互联网', '金融与投资', '青春文学'];
+var cate_list = ['小说', '文学', '青春文学', '传记', '励志与成功', '管理', '经济', '金融与投资', '历史', '心理学', '政治/军事', '社会科学', '科普读物', '计算机与互联网', '电子与通信'];
 
-var cate_arr = {};
+cate_arr = {};
 cate_arr[""] = [""];
 cate_arr["小说"] = ['世界名著', '中国古典小说', '中国当代小说', '中国近现代小说', '乡土', '作品集', '侦探/悬疑/推理', '军事', '历史', '四大名著', '外国小说', '官场', '宫廷', '影视小说', '情感/家庭/婚姻', '惊悚/恐怖', '期刊杂志', '武侠', '港澳台小说', '社会', '科幻小说', '穿越/重生/架空', '职场', '财经', '都市', '魔幻/奇幻/玄幻'];
 cate_arr["文学"] = ['中国文学', '作品集', '儿童文学', '名家作品', '外国文学', '影视文学', '戏剧曲艺', '散文/随笔/书信', '文学史', '文学理论', '文学评论与研究', '期刊杂志', '民间文学', '纪实文学', '诗歌词曲'];
@@ -22,7 +22,7 @@ layui.use(['form', 'jquery'], function () {
     var form = layui.form;
     var $ = layui.$;
 
-    $(document).ready(function () {
+    $(document).ready(function init() {
         b = document.getElementById("b_cate");
         for (var i = 0; i < cate_list.length; i++) {
             b.options.add(new Option(cate_list[i], cate_list[i]));
@@ -30,34 +30,14 @@ layui.use(['form', 'jquery'], function () {
         form.render('select');
     });
 
-    form.on('select(b_cate)', function () {
-        var b_obj = document.getElementById("b_cate");
+    form.on('select(b_cate)', function (data) {
         var s_obj = document.getElementById("s_cate");
-        var index = b_obj.selectedIndex;
-
-        var value = b_obj[index].value;
-
-        var s_list = cate_arr[value];
-        console.log(s_list);
+        var s_list = cate_arr[data.value];
         s_obj.options.length = 1;
         for (var i = 0; i < s_list.length; i++) {
             s_obj.options.add(new Option(s_list[i], s_list[i]));
         }
         form.render('select');
     });
-});
 
-layui.use('upload', function () {
-    var upload = layui.upload;
-
-    var uploadInst = upload.render({
-        elem: '#upload' //绑定元素
-        , url: './img/' //上传接口
-        , done: function (res) {
-            console.log(res.url);
-        }
-        , error: function () {
-            alert("error");
-        }
-    });
 });

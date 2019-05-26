@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>添加书本</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="./css/layui.css">
+    <script src="layui.js"></script>
+    <script src="formsetting.js"></script>
+    <style type="text/css">
+        body {
+            font-family: "Microsoft YaHei";
+        }
+
+        .layui-form {
+            width: 600px;
+            margin: 50px auto 0 100px;
+        }
+
+        .layui-form-select dl dd.layui-this {
+            background-color: #0E86E2;
+        }
+    </style>
+</head>
+
+<body>
+    <form class="layui-form" action="insert.jsp">
+        <div class="layui-form-item">
+            <label class="layui-form-label"><b>ID</b></label>
+            <div class="layui-input-block">
+                <input type="text" name="id" required autocomplete="off" class="layui-input" style="width: 200px" maxlength="20">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><b>书名</b></label>
+            <div class="layui-input-block">
+                <input type="text" name="name" required autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><b>作者</b></label>
+            <div class="layui-input-block">
+                <input type="text" name="author" required autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><b>出版社</b></label>
+            <div class="layui-input-block">
+                <input type="text" name="press" required autocomplete="off" class="layui-input">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><b>分类</b></label>
+            <div class="layui-input-inline" style="margin-right: 20px;">
+                <select name="b_cate" lay-verify="required" id="b_cate" lay-filter="b_cate">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="layui-input-inline">
+                <select name="s_cate" lay-verify="required" id="s_cate">
+                    <option value=""></option>
+                </select>
+            </div>
+        </div>
+        <div class="layui-form-item layui-form-text">
+            <label class="layui-form-label"><b>描述</b></label>
+            <div class="layui-input-block">
+                <textarea name="disc" placeholder="请输入内容" class="layui-textarea" style="height: 180px" maxlength="255"></textarea>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+        </div>
+    </form>
+
+
+</body>
+
+</html>

@@ -26,9 +26,9 @@
 
         .layui-form {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 380px;
-            left: 280px;
-            top: 30px;
         }
 
         #input-box {
@@ -134,23 +134,30 @@
     </ul>
 
     <%-- 搜索框 --%>
-    <form class="layui-form" action="search.jsp">
-        <div class="layui-form-item" id="search-box">
-            <div class="layui-input-inline" id="field">
-                <select name="field" lay-filter="field">
-                    <option value="0">书名</option>
-                    <option value="1">作者</option>
-                    <option value="2">出版社</option>
-                </select>
+    <div class="heading">
+        <form class="layui-form" action="search.jsp">
+            <div class="layui-form-item" id="search-box">
+                <div class="layui-input-inline" id="field">
+                    <select name="field" lay-filter="field">
+                        <option value="0">书名</option>
+                        <option value="1">作者</option>
+                        <option value="2">出版社</option>
+                    </select>
+                </div>
+                <div class="layui-input-inline" id="input-div">
+                    <input type="text" name="value" title="输入你的检索词" required class="layui-input" id="input-box">
+                </div>
+                <button class="layui-btn layui-btn-primary" type="submit">
+                    <i class="layui-icon">&#xe615;</i>
+                </button>
             </div>
-            <div class="layui-input-inline" id="input-div">
-                <input type="text" name="value" title="输入你的检索词" required class="layui-input" id="input-box">
-            </div>
-            <button class="layui-btn layui-btn-primary" type="submit">
-                <i class="layui-icon">&#xe615;</i>
-            </button>
+        </form> 
+        <div class="layui-inline" style="float:right; margin-right: 20px;">
+            <a href="insertpage.html">
+                <button class="layui-btn" type="button">添加书本</button>
+            </a>
         </div>
-    </form>
+    </div>
 
     <div class="content">
         <%-- 面包屑 --%>
@@ -217,8 +224,12 @@
                             <a target="_blank" href="<%=url%>">
                                 <button class="layui-btn layui-btn-primary">前往购买</button>
                             </a>
-                            <button class="layui-btn layui-btn-primary">修改内容</button>
-                            <button class="layui-btn layui-btn-primary">删除书本</button>
+                            <a href="updatepage.jsp?id=<%=id%>&b_cate=<%=b_cate%>&s_cate=<%=s_cate%>">
+                                <button class="layui-btn layui-btn-primary">修改内容</button>
+                            </a>
+                            <a href="delete.jsp?id=<%=id%>&b_cate=<%=b_cate%>&s_cate=<%=s_cate%>" onclick="if(confirm('确定删除?')==false) return false;">
+                                <button class="layui-btn layui-btn-primary">删除书本</button>
+                            </a>
                         </div>
                     </div>
                 </div>

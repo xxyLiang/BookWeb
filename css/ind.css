@@ -91,9 +91,20 @@ body {
 .search-result {
     position: absolute;
     top: 0;
-    right: 0;
+    right: 20px;
     color: #999;
 }
+
+.heading {
+    display: block;
+    width: 72%;
+    min-width: 820px;
+    max-width: 1360px;
+    position: absolute;
+    left: 280px;
+    top: 30px;
+}
+
 .content {
     display: block;
     width: 72%;
@@ -106,7 +117,6 @@ body {
 
 .content .sort {
     display: block;
-    max-width: 1200px;
     line-height: 25px;
     background-color: #E2E2E2;
 }
