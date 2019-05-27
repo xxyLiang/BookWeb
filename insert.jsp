@@ -1,14 +1,49 @@
-<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*, java.net.*"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*, javax.servlet.*, java.net.*"%>
+<%@ page import="java.io.*, org.apache.commons.fileupload.*, org.apache.commons.fileupload.disk.*, org.apache.commons.fileupload.servlet.*"%>
+<!DOCTYPE html>
 
 <% 
-	String id = request.getParameter("id");
-	String name = request.getParameter("name");
-	String author = request.getParameter("author");
-	String press = request.getParameter("press");
-	String b_cate = request.getParameter("b_cate");
-	String s_cate = request.getParameter("s_cate");
-    String discription = request.getParameter("disc");
+	request.setCharacterEncoding("UTF-8"); 
+
+	String id = null;
+	String name = null;
+	String author = null;
+	String press = null;
+	String b_cate = null;
+	String s_cate = null;
+    String discription = null;
+	String img = "./img/default-book.jpg";
+	String pn,v;
+
+    final int threshold = 10240; 
+    final File tmpDir = new File(getServletContext().getRealPath("/") + "tmp"); 
+    if(ServletFileUpload.isMultipartContent(request)) 
+    { 
+        FileItemFactory factory = new DiskFileItemFactory(threshold, tmpDir); 
+        ServletFileUpload upload = new ServletFileUpload(factory); 
+        List<FileItem> items = upload.parseRequest(request); // FileUploadException 
+        for(FileItem item : items) 
+        { 
+			pn = (String)item.getFieldName();
+            if(item.isFormField()) //regular form field 
+            {
+				v = item.getString("utf-8");
+				if (pn.equals("id")) {id = v;} 
+				else if (pn.equals("name")) {name = v;}
+				else if (pn.equals("author")) {author = v;}
+				else if (pn.equals("press")) {press = v;}
+				else if (pn.equals("b_cate")) {b_cate = v;}
+				else if (pn.equals("s_cate")) {s_cate = v;}
+				else if (pn.equals("discription")) {discription = v;}
+			}
+			else { 
+                String fileName = item.getName(); 
+                File uploadedFile = new File(getServletContext().getRealPath("/img") + File.separator + fileName); 
+                item.write(uploadedFile); 
+				img = "./img/" + fileName;
+            } 
+        }
+	}
 
     Context initContext = new InitialContext();
 	Context envContext  = (Context)initContext.lookup("java:/comp/env");
@@ -29,7 +64,7 @@
 		rs.close();
 
 		if(update == 0){
-			psmt = conn.prepareStatement("insert into books values(?, ?, ?, ?, ?, ?, ?, './img/default-book.jpg', '#', 1, CURRENT_TIMESTAMP)");
+			psmt = conn.prepareStatement("insert into books values(?, ?, ?, ?, ?, ?, ?, ?, '#', 1, CURRENT_TIMESTAMP)");
 			psmt.setString(1, id);
 			psmt.setString(2, b_cate);
 			psmt.setString(3, s_cate);
@@ -37,6 +72,7 @@
 			psmt.setString(5, author);
 			psmt.setString(6, discription);
 			psmt.setString(7, press);
+			psmt.setString(8, img);
 		}
 		else{
 			psmt = conn.prepareStatement("update books set b_cate=?, s_cate=?, book_name=?, author=?, discription=?, press=?, user_define=1 where id=?");

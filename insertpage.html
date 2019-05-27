@@ -38,7 +38,7 @@
 </head>
 
 <body>
-    <form class="layui-form" action="insert.jsp">
+    <form class="layui-form" action="insert.jsp" method="post" enctype="multipart/form-data">
         <div class="layui-form-item">
             <label class="layui-form-label"><b>ID</b></label>
             <div class="layui-input-block">
@@ -77,6 +77,10 @@
                 </select>
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-lable"><b>图片</b></label>
+            <input type="file" name="img">
+        </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label"><b>描述</b></label>
             <div class="layui-input-block">
@@ -92,6 +96,23 @@
         </div>
     </form>
 
+    <script>
+        layui.use('upload', function () {
+            var upload = layui.upload;
+
+            var uploadInst = upload.render({
+                elem: '#upload' //绑定元素
+                , url: './uploads.jsp' //上传接口
+                , done: function (res) {
+                    var img = res.getResponseHeader('img');
+                    document.getElementById(img).value=img;
+                }
+                , error: function () {
+                    console.log("error")
+                }
+            });
+        });
+    </script>
 
 </body>
 
