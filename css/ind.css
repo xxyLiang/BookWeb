@@ -313,7 +313,7 @@ body {
     line-height: 20px;
     padding: 15px 20px 15px 20px;
 }
-
+/* 
 @media (max-width: 700px) {
     .card {
         width: 100%;
@@ -325,4 +325,4 @@ body {
     .card .card__back {
         height: 290px;
     }
-}
+} */

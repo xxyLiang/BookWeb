@@ -49,24 +49,34 @@
 
 
 <% 
-    //初始化
-	String c = request.getParameter("field");
-    int choose = Integer.parseInt(c);
-	String value = request.getParameter("value");
+
+    String c = null;
+    int choose = 0;
+	String value = null;
+    String p = null;
     int page_num = 1;
+
     try{
-        String p = request.getParameter("page_num");
+        c = request.getParameter("field");
+        value = request.getParameter("value");
+        choose = Integer.parseInt(c);
+    } catch (Exception e) {}
+    
+    try{
+        p = request.getParameter("page_num");
         page_num = Integer.parseInt(p);
     } catch (Exception e) {}
 
     int start = 30 * (page_num - 1);
-	
+  
 	Context initContext = new InitialContext();
 	Context envContext  = (Context)initContext.lookup("java:/comp/env");
 	DataSource ds = (DataSource)envContext.lookup("jdbc/book"); 
 	Connection conn = null;
     Statement stmt = null;
+    Statement stmt2 = null;
 	ResultSet rs = null;
+	ResultSet rs2 = null;
 	String[] field = {"book_name", "author", "press"};
     String[] field_c = {"书名", "作者", "出版社"};
 
@@ -77,8 +87,15 @@
 	try {
 		conn = ds.getConnection();			
 		stmt = conn.createStatement();
-		rs = stmt.executeQuery("select * from books where "+ field[choose] +" like '%" + value + "%' limit "+start+",30");
-
+		stmt2 = conn.createStatement();
+        if(c != null)
+        {
+		    rs = stmt.executeQuery("select * from books where "+ field[choose] +" like '%" + value + "%' limit "+start+",30");
+            rs2 = stmt2.executeQuery("select count(*) from books where "+ field[choose] +" like '%" + value + "%'");
+        } else{
+            rs = stmt.executeQuery("select * from books where user_define=1 order by ts desc limit "+start+",30");
+            rs2 = stmt2.executeQuery("select count(*) from books where user_define=1");
+        }
         while (rs.next()) {
             Map<String, String> item = new HashMap<String, String>();
             item.put("id", rs.getString("id"));
@@ -93,18 +110,19 @@
             book_list.add(item);
         }
 
-        rs = stmt.executeQuery("select count(*) from books where "+ field[choose] +" like '%" + value + "%'");
-        if(rs.next()) {
-            total_book_number = rs.getInt(1);
+        if(rs2.next()) {
+            total_book_number = rs2.getInt(1);
         }
 
         rs.close();
+        rs2.close();
 	} catch (Exception e) {
 		throw e;
 	} finally {
         book_number = book_list.size();
 		try {
 			if (stmt != null) stmt.close();
+			if (stmt2 != null) stmt2.close();
 			if (conn != null) conn.close();
 		} catch (Exception e) {
 			throw e;
@@ -156,7 +174,7 @@
             <a href="insertpage.html">
                 <button class="layui-btn function-button" type="button">新增图书</button>
             </a>
-            <a href="mybook.jsp" style="margin-left: 10px;">
+            <a href="search.jsp" style="margin-left: 10px;">
                 <button class="layui-btn function-button" type="button">我的图书</button>
             </a>
         </div>
@@ -166,7 +184,11 @@
         <%-- 面包屑 --%>
         <div class="layui-breadcrumb" lay-separator=">" id="breadcrumb">
             <a href="index.html">首页</a>
+            <%if(c!=null){%>
             <a><cite><%=field_c[choose]%>：<%=value%></cite></a>
+            <%}else{%>
+            <a><cite>我的图书</cite></a>
+            <%}%>
         </div>
         <div class="search-result">
             <span>搜索到 <%=total_book_number%> 条记录</span>
@@ -246,9 +268,7 @@
 
     <script>
 
-        layui.use(['laypage', 'jquery'], function () {
-            var $ = layui.$;
-
+        layui.use('laypage', function () {
             var laypage = layui.laypage;
             laypage.render({
                 elem: 'page-box',
@@ -258,7 +278,12 @@
                 layout: ['prev', 'page', 'next', 'skip'],
                 jump: function (obj, first) {
                     if(!first){
-                        var url = "search.jsp?field=<%=c%>&value=<%=value%>&page_num=" + obj.curr;
+                        if(<%=c%>!=null){
+                            var url = "search.jsp?field=<%=c%>&value=<%=value%>&page_num=" + obj.curr;
+                        }
+                        else{
+                            var url = "search.jsp?page_num=" + obj.curr;
+                        }
                         window.location.href = url;
                 }}
             });

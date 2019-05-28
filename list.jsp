@@ -172,7 +172,7 @@
             <a href="insertpage.html">
                 <button class="layui-btn function-button" type="button">新增图书</button>
             </a>
-            <a href="mybook.jsp" style="margin-left: 10px;">
+            <a href="search.jsp" style="margin-left: 10px;">
                 <button class="layui-btn function-button" type="button">我的图书</button>
             </a>
         </div>
@@ -280,9 +280,7 @@
 
 
     <script>
-        layui.use(['laypage', 'jquery'], function () {
-            var $ = layui.$;
-
+        layui.use('laypage', function () {
             var laypage = layui.laypage;
             laypage.render({
                 elem: 'page-box',
