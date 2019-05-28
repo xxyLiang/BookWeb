@@ -1,12 +1,12 @@
 html {
-    height: 100%;
+    min-height: 100%;
 }
 
 body {
     font-family: "Microsoft YaHei";
     height: 100%;
     min-width: 1080px;
-    min-height: 725px;
+    /* min-height: 725px; */
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -235,6 +235,9 @@ body {
     font-size: 28px;
 }
 
+.function-button {
+    border-radius: 19px;
+}
 
 .focus_ovr {
     position: absolute;
@@ -286,7 +289,7 @@ body {
     height: 310px;
     background-color: white;
     border: 1px solid rgb(150, 150, 150);
-    box-shadow: 0 0 8px #666666;
+    box-shadow: 0 0 15px #aaa;
     padding: 15px 15px 15px 15px;
 }
 

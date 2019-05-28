@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>图书系统</title>
+    <title>我的图书</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/layui.css">
     <link rel="stylesheet" href="./css/ind.css">
@@ -50,9 +50,6 @@
 
 <% 
     //初始化
-	String c = request.getParameter("field");
-    int choose = Integer.parseInt(c);
-	String value = request.getParameter("value");
     int page_num = 1;
     try{
         String p = request.getParameter("page_num");
@@ -67,8 +64,6 @@
 	Connection conn = null;
     Statement stmt = null;
 	ResultSet rs = null;
-	String[] field = {"book_name", "author", "press"};
-    String[] field_c = {"书名", "作者", "出版社"};
 
     ArrayList book_list = new ArrayList();
     int book_number = 0;
@@ -77,7 +72,7 @@
 	try {
 		conn = ds.getConnection();			
 		stmt = conn.createStatement();
-		rs = stmt.executeQuery("select * from books where "+ field[choose] +" like '%" + value + "%' limit "+start+",30");
+		rs = stmt.executeQuery("select * from books where user_define=1 order by ts desc limit "+start+",30");
 
         while (rs.next()) {
             Map<String, String> item = new HashMap<String, String>();
@@ -93,7 +88,7 @@
             book_list.add(item);
         }
 
-        rs = stmt.executeQuery("select count(*) from books where "+ field[choose] +" like '%" + value + "%'");
+        rs = stmt.executeQuery("select count(*) from books where user_define=1");
         if(rs.next()) {
             total_book_number = rs.getInt(1);
         }
@@ -166,7 +161,7 @@
         <%-- 面包屑 --%>
         <div class="layui-breadcrumb" lay-separator=">" id="breadcrumb">
             <a href="index.html">首页</a>
-            <a><cite><%=field_c[choose]%>：<%=value%></cite></a>
+            <a><cite>我的书本</cite></a>
         </div>
         <div class="search-result">
             <span>搜索到 <%=total_book_number%> 条记录</span>
@@ -242,8 +237,6 @@
         <div id='page-box'></div>
     </div>
 
-
-
     <script>
 
         layui.use(['laypage', 'jquery'], function () {
@@ -258,7 +251,7 @@
                 layout: ['prev', 'page', 'next', 'skip'],
                 jump: function (obj, first) {
                     if(!first){
-                        var url = "search.jsp?field=<%=c%>&value=<%=value%>&page_num=" + obj.curr;
+                        var url = "mybook.jsp&page_num=" + obj.curr;
                         window.location.href = url;
                 }}
             });

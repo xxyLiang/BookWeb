@@ -170,7 +170,10 @@
         </form> 
         <div class="layui-inline" style="float:right; margin-right: 20px;">
             <a href="insertpage.html">
-                <button class="layui-btn" type="button">添加书本</button>
+                <button class="layui-btn function-button" type="button">新增图书</button>
+            </a>
+            <a href="mybook.jsp" style="margin-left: 10px;">
+                <button class="layui-btn function-button" type="button">我的图书</button>
             </a>
         </div>
     </div>

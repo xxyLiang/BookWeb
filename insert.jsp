@@ -103,7 +103,7 @@
         psmt.execute();
 		b_cate = URLEncoder.encode(b_cate.toString(),"utf8"); 
 		s_cate = URLEncoder.encode(s_cate.toString(),"utf8"); 
-        response.sendRedirect("list.jsp?b_cate="+ b_cate +"&s_cate="+ s_cate);
+        response.sendRedirect("mybook.jsp");
 
 
 	} catch (Exception e) {
