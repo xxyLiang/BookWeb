@@ -260,10 +260,10 @@
                             <a target="_blank" href="<%=url%>">
                                 <button class="layui-btn layui-btn-primary">前往购买</button>
                             </a>
-                            <a href="updatepage.jsp?id=<%=id%>&b_cate=<%=b_cate%>&s_cate=<%=s_cate%>">
+                            <a href="updatepage.jsp?id=<%=id%>">
                                 <button class="layui-btn layui-btn-primary">修改内容</button>
                             </a>
-                            <a href="delete.jsp?id=<%=id%>&b_cate=<%=b_cate%>&s_cate=<%=s_cate%>" onclick="if(confirm('确定删除?')==false) return false;">
+                            <a href="delete.jsp?id=<%=id%>" onclick="if(confirm('确定删除?')==false) return false;">
                                 <button class="layui-btn layui-btn-primary">删除书本</button>
                             </a>
                         </div>

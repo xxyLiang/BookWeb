@@ -3,8 +3,6 @@
 
 <% 
 	String id = request.getParameter("id");
-    String b_cate = request.getParameter("b_cate");
-	String s_cate = request.getParameter("s_cate");
 
     Context initContext = new InitialContext();
 	Context envContext  = (Context)initContext.lookup("java:/comp/env");

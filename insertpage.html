@@ -34,6 +34,15 @@
             -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
         }
+
+        #show-img {
+            border: 1px solid #e6e6e6;
+            width: 205px;
+            height: 205px;
+            padding: 5px;
+            display: inline-block;
+            margin-left: 20px;
+        }
     </style>
 </head>
 
@@ -78,8 +87,14 @@
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-lable"><b>图片</b></label>
-            <input type="file" name="img">
+            <label class="layui-form-label"><b>图片</b></label>
+            <div class="layui-input-block">
+                <input type="file" name="img" id="file" style="display: none"
+                    accept="image/png, image/jpeg, image/gif, image/jpg" onchange="filechange(event)">
+                <button type="button" class="layui-btn layui-btn-primary" style="vertical-align: top;"
+                    onclick="file.click()">选择图片</button>
+                <img src="./img/blank.jpg" id="show-img" onclick="file.click()">
+            </div>
         </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label"><b>描述</b></label>
@@ -105,13 +120,18 @@
                 , url: './uploads.jsp' //上传接口
                 , done: function (res) {
                     var img = res.getResponseHeader('img');
-                    document.getElementById(img).value=img;
+                    document.getElementById(img).value = img;
                 }
                 , error: function () {
                     console.log("error")
                 }
             });
+
         });
+        var filechange = function (event) {
+            var imgURL = window.URL.createObjectURL(event.target.files[0]);
+            document.getElementById("show-img").src = imgURL;
+        }
     </script>
 
 </body>

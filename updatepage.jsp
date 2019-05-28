@@ -35,17 +35,27 @@
             -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
             box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6)
         }
+
+        #show-img {
+            border: 1px solid #e6e6e6;
+            width: 205px;
+            height: 205px;
+            padding: 5px;
+            display: inline-block;
+            margin-left: 20px;
+        }
     </style>
 </head>
 
 <% 
 	String id = request.getParameter("id");
-    String b_cate = request.getParameter("b_cate");
-	String s_cate = request.getParameter("s_cate");
+    String b_cate = null;
+    String s_cate = null;
 	String name = null;
 	String author = null;
 	String press = null;
     String discription = null;
+    String img = null;
 
     Context initContext = new InitialContext();
 	Context envContext  = (Context)initContext.lookup("java:/comp/env");
@@ -56,16 +66,21 @@
 
 	try {
 		conn = ds.getConnection();			
-		psmt = conn.prepareStatement("select * from books where id=? and b_cate=? and s_cate=?");
+		psmt = conn.prepareStatement("select * from books where id=?");
         psmt.setString(1, id);
-        psmt.setString(2, b_cate);
-        psmt.setString(3, s_cate);
         rs = psmt.executeQuery();
 		if(rs.next()) {
             name = rs.getString("book_name");
+            b_cate = rs.getString("b_cate");
+            s_cate = rs.getString("s_cate");
             author = rs.getString("author");
             press = rs.getString("press");
             discription = rs.getString("discription");
+            img = rs.getString("image");
+        }
+        if(discription == null)
+        {
+            discription = "";
         }
 
 	} catch (Exception e) {
@@ -82,7 +97,7 @@
 
 
 <body>
-    <form class="layui-form" lay-filter="upd-form" action="insert.jsp">
+    <form class="layui-form" lay-filter="upd-form" action="insert.jsp" method="post" enctype="multipart/form-data">
         <div class="layui-form-item">
             <label class="layui-form-label"><b>ID</b></label>
             <div class="layui-input-block">
@@ -120,6 +135,15 @@
                 </select>
             </div>
         </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label"><b>图片</b></label>
+            <div class="layui-input-block">
+                <input type="file" name="img" id="file" style="display: none"
+                    accept="image/png, image/jpeg, image/gif, image/jpg" onchange="filechange(event)">
+                <button type="button" class="layui-btn layui-btn-primary" style="vertical-align: top;" onclick="file.click()">选择图片</button>
+                <img src="./img/blank.jpg" id="show-img" onclick="file.click()">
+            </div>
+        </div>
         <div class="layui-form-item layui-form-text">
             <label class="layui-form-label"><b>描述</b></label>
             <div class="layui-input-block">
@@ -154,6 +178,7 @@
                 "b_cate": "<%=b_cate%>",
                 "disc": "<%=discription%>",
             });
+            document.getElementById("show-img").src = "<%=img%>";
 
             var s_list = cate_arr["<%=b_cate%>"];
             var s_obj = document.getElementById("s_cate");
@@ -168,6 +193,10 @@
             });
         });
     });
+    var filechange = function (event) {
+        var imgURL = window.URL.createObjectURL(event.target.files[0]);
+        document.getElementById("show-img").src = imgURL;
+    }
     </script>
 
 </body>

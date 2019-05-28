@@ -15,8 +15,8 @@
 	String img = "./img/default-book.jpg";
 	String pn,v;
 
-    final int threshold = 10240; 
-    final File tmpDir = new File(getServletContext().getRealPath("/") + "tmp"); 
+    final int threshold = 102400; 
+    final File tmpDir = new File(getServletContext().getRealPath("/img/") + "tmp"); 
     if(ServletFileUpload.isMultipartContent(request)) 
     { 
         FileItemFactory factory = new DiskFileItemFactory(threshold, tmpDir); 
@@ -37,10 +37,18 @@
 				else if (pn.equals("discription")) {discription = v;}
 			}
 			else { 
-                String fileName = item.getName(); 
-                File uploadedFile = new File(getServletContext().getRealPath("/img") + File.separator + fileName); 
-                item.write(uploadedFile); 
-				img = "./img/" + fileName;
+				if(item.getSize() > 0){
+					String LETTERCHAR = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+					StringBuffer sb = new StringBuffer();
+					Random random = new Random();
+					for (int i = 0; i < 10; i++) {
+						sb.append(LETTERCHAR.charAt(random.nextInt(LETTERCHAR.length())));
+					}
+					String fileName = sb.toString() + item.getName(); 
+					File uploadedFile = new File(getServletContext().getRealPath("/img/upload") + File.separator + fileName); 
+					item.write(uploadedFile); 
+					img = "./img/upload/" + fileName;
+				}
             } 
         }
 	}
@@ -75,14 +83,22 @@
 			psmt.setString(8, img);
 		}
 		else{
-			psmt = conn.prepareStatement("update books set b_cate=?, s_cate=?, book_name=?, author=?, discription=?, press=?, user_define=1 where id=?");
+			if(img.equals("./img/default-book.jpg")){
+				psmt = conn.prepareStatement("update books set b_cate=?, s_cate=?, book_name=?, author=?, discription=?, press=?, user_define=1 where id=?");
+				psmt.setString(7, id);
+			}
+			else{
+				psmt = conn.prepareStatement("update books set b_cate=?, s_cate=?, book_name=?, author=?, discription=?, press=?, image=?, user_define=1 where id=?");
+				psmt.setString(7, img);
+				psmt.setString(8, id);
+			}
 			psmt.setString(1, b_cate);
 			psmt.setString(2, s_cate);
 			psmt.setString(3, name);
 			psmt.setString(4, author);
 			psmt.setString(5, discription);
 			psmt.setString(6, press);
-			psmt.setString(7, id);
+			
 		}
         psmt.execute();
 		b_cate = URLEncoder.encode(b_cate.toString(),"utf8"); 
