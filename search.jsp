@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" %>
+<%@ page import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*" %>
 <!DOCTYPE html>
 <html>
 
@@ -73,12 +74,11 @@
 	Context envContext  = (Context)initContext.lookup("java:/comp/env");
 	DataSource ds = (DataSource)envContext.lookup("jdbc/book"); 
 	Connection conn = null;
-    Statement stmt = null;
-    Statement stmt2 = null;
+    PreparedStatement psmt = null;
+    PreparedStatement psmt2 = null;
 	ResultSet rs = null;
 	ResultSet rs2 = null;
-	String[] field = {"book_name", "author", "press"};
-    String[] field_c = {"书名", "作者", "出版社"};
+    String[] field = {"书名", "作者", "出版社"};
 
     ArrayList book_list = new ArrayList();
     int book_number = 0;
@@ -86,16 +86,31 @@
 
 	try {
 		conn = ds.getConnection();			
-		stmt = conn.createStatement();
-		stmt2 = conn.createStatement();
         if(c != null)
         {
-		    rs = stmt.executeQuery("select * from books where "+ field[choose] +" like '%" + value + "%' limit "+start+",30");
-            rs2 = stmt2.executeQuery("select count(*) from books where "+ field[choose] +" like '%" + value + "%'");
+            if(choose==0){
+                psmt = conn.prepareStatement("select * from books where book_name like ? limit ?,30");
+                psmt2 = conn.prepareStatement("select count(*) from books where book_name like ?");
+            }
+            else if(choose==1){
+                psmt = conn.prepareStatement("select * from books where author like ? limit ?,30");
+                psmt2 = conn.prepareStatement("select count(*) from books where author like ?");
+            }
+            else {
+                psmt = conn.prepareStatement("select * from books where press like ? limit ?,30");
+                psmt2 = conn.prepareStatement("select count(*) from books where press like ?");
+            }
+            psmt.setString(1, "%"+value+"%");
+            psmt.setInt(2, start);
+            psmt2.setString(1, "%"+value+"%");
         } else{
-            rs = stmt.executeQuery("select * from books where user_define=1 order by ts desc limit "+start+",30");
-            rs2 = stmt2.executeQuery("select count(*) from books where user_define=1");
+            psmt = conn.prepareStatement("select * from books where user_define=1 order by ts desc limit ?,30");
+            psmt2 = conn.prepareStatement("select count(*) from books where user_define=1");
+            psmt.setInt(1, start);
         }
+        rs = psmt.executeQuery();
+        rs2 = psmt2.executeQuery();
+        
         while (rs.next()) {
             Map<String, String> item = new HashMap<String, String>();
             item.put("id", rs.getString("id"));
@@ -121,8 +136,8 @@
 	} finally {
         book_number = book_list.size();
 		try {
-			if (stmt != null) stmt.close();
-			if (stmt2 != null) stmt2.close();
+			if (psmt != null) psmt.close();
+			if (psmt2 != null) psmt2.close();
 			if (conn != null) conn.close();
 		} catch (Exception e) {
 			throw e;
@@ -185,7 +200,7 @@
         <div class="layui-breadcrumb" lay-separator=">" id="breadcrumb">
             <a href="index.html">首页</a>
             <%if(c!=null){%>
-            <a><cite><%=field_c[choose]%>：<%=value%></cite></a>
+            <a><cite><%=field[choose]%>：<%=value%></cite></a>
             <%}else{%>
             <a><cite>我的图书</cite></a>
             <%}%>
@@ -264,8 +279,6 @@
         <div id='page-box'></div>
     </div>
 
-
-
     <script>
 
         layui.use('laypage', function () {
@@ -290,7 +303,6 @@
             if(<%=total_book_number%> <= 30){
                 document.getElementById('page-box').style.display="none";
             }
-
         });
 
     </script>

@@ -103,7 +103,7 @@
         psmt.execute();
 		b_cate = URLEncoder.encode(b_cate.toString(),"utf8"); 
 		s_cate = URLEncoder.encode(s_cate.toString(),"utf8"); 
-        response.sendRedirect("mybook.jsp");
+        response.sendRedirect("search.jsp");
 
 
 	} catch (Exception e) {
