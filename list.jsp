@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" %>
+<%@ page import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*, org.apache.commons.lang3.*" %>
 <!DOCTYPE html>
 
 <html>
@@ -161,8 +162,7 @@
                     </select>
                 </div>
                 <div class="layui-input-inline" id="input-div">
-                    <input type="text" name="value" title="输入你的检索词" class="layui-input" id="input-box"
-                    onkeyup="this.value=this.value.replace(/[%]/g,'')" required>
+                    <input type="text" name="value" title="输入你的检索词" class="layui-input" id="input-box" required>
                 </div>
                 <button class="layui-btn layui-btn-primary" type="submit">
                     <i class="layui-icon">&#xe615;</i>
@@ -216,13 +216,13 @@
         {
             Map<String, String> book = new HashMap<String, String>();
             book = (Map<String, String>) book_list.get(i);
-            String id = book.get("id");
+            String id = StringEscapeUtils.escapeHtml4(book.get("id"));
             String b_cate = book.get("b_cate");
             String s_cate = book.get("s_cate");
-            String name = book.get("name"); 
-            String author = book.get("author"); 
-            String discription = book.get("discription"); 
-            String press = book.get("press"); 
+            String name = StringEscapeUtils.escapeHtml4(book.get("name")); 
+            String author = StringEscapeUtils.escapeHtml4(book.get("author")); 
+            String discription = StringEscapeUtils.escapeHtml4(book.get("discription")); 
+            String press = StringEscapeUtils.escapeHtml4(book.get("press")); 
             String image = book.get("image"); 
             String url = book.get("url"); 
 %>

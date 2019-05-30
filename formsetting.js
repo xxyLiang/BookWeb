@@ -41,3 +41,8 @@ layui.use(['form', 'jquery'], function () {
     });
 
 });
+
+filechange = function (event) {
+    var imgURL = window.URL.createObjectURL(event.target.files[0]);
+    document.getElementById("show-img").src = imgURL;
+}

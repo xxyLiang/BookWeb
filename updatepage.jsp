@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*" %>
+<%@ page contentType="text/html; charset=utf-8" language="java" %>
+<%@ page import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*" %>
 
 <html>
 
@@ -99,7 +100,7 @@
 <body>
     <form class="layui-form" lay-filter="upd-form" action="insert.jsp" method="post" enctype="multipart/form-data">
         <div class="layui-form-item">
-            <label class="layui-form-label"><b>ID</b></label>
+            <label class="layui-form-label"><b>图书编号</b></label>
             <div class="layui-input-block">
                 <input type="text" name="id" required autocomplete="off" class="layui-input" style="width: 200px" maxlength="20" readonly>
             </div>
@@ -193,10 +194,7 @@
             });
         });
     });
-    var filechange = function (event) {
-        var imgURL = window.URL.createObjectURL(event.target.files[0]);
-        document.getElementById("show-img").src = imgURL;
-    }
+
     </script>
 
 </body>

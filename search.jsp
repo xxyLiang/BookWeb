@@ -62,7 +62,7 @@
         c = request.getParameter("field");
         value = request.getParameter("value");
         value = StringEscapeUtils.unescapeHtml4(value);
-        if(value.equals("") || c.equals("")){
+        if(value.equals("") || value.equals("%") || c.equals("")){
             response.sendRedirect("index.html");
         }
         choose = Integer.parseInt(c);
@@ -184,8 +184,7 @@
                     </select>
                 </div>
                 <div class="layui-input-inline" id="input-div">
-                    <input type="text" name="value" title="输入你的检索词" class="layui-input" id="input-box"
-                    onkeyup="this.value=this.value.replace(/[%]/g,'')" required>
+                    <input type="text" name="value" title="输入你的检索词" class="layui-input" id="input-box" required>
                 </div>
                 <button class="layui-btn layui-btn-primary" type="submit">
                     <i class="layui-icon">&#xe615;</i>
@@ -231,7 +230,7 @@
             String author = StringEscapeUtils.escapeHtml4(book.get("author")); 
             String discription = StringEscapeUtils.escapeHtml4(book.get("discription")); 
             String press = StringEscapeUtils.escapeHtml4(book.get("press")); 
-            String image = StringEscapeUtils.escapeHtml4(book.get("image")); 
+            String image = book.get("image"); 
             String url = book.get("url"); 
 %>
             <div class="book card">

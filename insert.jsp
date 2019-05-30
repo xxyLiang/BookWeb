@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*, javax.servlet.*, java.net.*"%>
+<%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*, javax.servlet.*"%>
 <%@ page import="java.io.*, org.apache.commons.fileupload.*, org.apache.commons.fileupload.disk.*, org.apache.commons.fileupload.servlet.*"%>
 <!DOCTYPE html>
 
@@ -34,7 +34,7 @@
 				else if (pn.equals("press")) {press = v;}
 				else if (pn.equals("b_cate")) {b_cate = v;}
 				else if (pn.equals("s_cate")) {s_cate = v;}
-				else if (pn.equals("discription")) {discription = v;}
+				else if (pn.equals("disc")) {discription = v;}
 			}
 			else { 
 				if(item.getSize() > 0){
@@ -98,13 +98,9 @@
 			psmt.setString(4, author);
 			psmt.setString(5, discription);
 			psmt.setString(6, press);
-			
 		}
         psmt.execute();
-		b_cate = URLEncoder.encode(b_cate.toString(),"utf8"); 
-		s_cate = URLEncoder.encode(s_cate.toString(),"utf8"); 
         response.sendRedirect("search.jsp");
-
 
 	} catch (Exception e) {
 		throw e;

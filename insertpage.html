@@ -49,7 +49,7 @@
 <body>
     <form class="layui-form" action="insert.jsp" method="post" enctype="multipart/form-data">
         <div class="layui-form-item">
-            <label class="layui-form-label"><b>ID</b></label>
+            <label class="layui-form-label"><b>图书编号</b></label>
             <div class="layui-input-block">
                 <input type="text" name="id" required autocomplete="off" class="layui-input" style="width: 200px"
                     maxlength="20">
@@ -112,26 +112,7 @@
     </form>
 
     <script>
-        layui.use('upload', function () {
-            var upload = layui.upload;
 
-            var uploadInst = upload.render({
-                elem: '#upload' //绑定元素
-                , url: './uploads.jsp' //上传接口
-                , done: function (res) {
-                    var img = res.getResponseHeader('img');
-                    document.getElementById(img).value = img;
-                }
-                , error: function () {
-                    console.log("error")
-                }
-            });
-
-        });
-        var filechange = function (event) {
-            var imgURL = window.URL.createObjectURL(event.target.files[0]);
-            document.getElementById("show-img").src = imgURL;
-        }
     </script>
 
 </body>
