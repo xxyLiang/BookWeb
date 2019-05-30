@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=utf-8" language="java" import="java.util.*, java.sql.*, javax.sql.*, javax.naming.*, javax.servlet.*"%>
-<%@ page import="java.io.*, org.apache.commons.fileupload.*, org.apache.commons.fileupload.disk.*, org.apache.commons.fileupload.servlet.*"%>
+<%@ page import="java.io.*, org.apache.commons.fileupload.*, org.apache.commons.fileupload.disk.*, org.apache.commons.fileupload.servlet.*, org.apache.commons.lang3.*"%>
 <!DOCTYPE html>
 
 <% 
@@ -38,13 +38,8 @@
 			}
 			else { 
 				if(item.getSize() > 0){
-					String LETTERCHAR = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-					StringBuffer sb = new StringBuffer();
-					Random random = new Random();
-					for (int i = 0; i < 10; i++) {
-						sb.append(LETTERCHAR.charAt(random.nextInt(LETTERCHAR.length())));
-					}
-					String fileName = sb.toString() + item.getName(); 
+					String fileName = RandomStringUtils.randomAlphanumeric(10)
+						 + item.getName().substring(item.getName().lastIndexOf("."));
 					File uploadedFile = new File(getServletContext().getRealPath("/img/upload") + File.separator + fileName); 
 					item.write(uploadedFile); 
 					img = "./img/upload/" + fileName;
