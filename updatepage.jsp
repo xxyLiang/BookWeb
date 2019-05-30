@@ -4,7 +4,7 @@
 <html>
 
 <head>
-    <title>添加书本</title>
+    <title>更新书本</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/layui.css">
     <script src="layui.js"></script>

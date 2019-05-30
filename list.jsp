@@ -161,7 +161,8 @@
                     </select>
                 </div>
                 <div class="layui-input-inline" id="input-div">
-                    <input type="text" name="value" title="输入你的检索词" required class="layui-input" id="input-box">
+                    <input type="text" name="value" title="输入你的检索词" class="layui-input" id="input-box"
+                    onkeyup="this.value=this.value.replace(/[%]/g,'')" required>
                 </div>
                 <button class="layui-btn layui-btn-primary" type="submit">
                     <i class="layui-icon">&#xe615;</i>
