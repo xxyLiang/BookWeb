@@ -8,6 +8,8 @@
     <title>更新书本</title>
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/layui.css">
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
     <script src="layui.js"></script>
     <script src="formsetting.js"></script>
     <style type="text/css">
@@ -99,32 +101,33 @@
 
 <body>
     <form class="layui-form" lay-filter="upd-form" action="insert.jsp" method="post" enctype="multipart/form-data">
-        <div class="layui-form-item">
-            <label class="layui-form-label"><b>图书编号</b></label>
+     <div class="layui-form-item">
+            <label class="layui-form-label"><span style="color: red">* </span><b>图书编号</b></label>
             <div class="layui-input-block">
-                <input type="text" name="id" required autocomplete="off" class="layui-input" style="width: 200px" maxlength="20" readonly>
+                <input type="text" name="id" required autocomplete="off" class="layui-input" 
+                    style="width: 200px" maxlength="20">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label"><b>书名</b></label>
+            <label class="layui-form-label"><span style="color: red">* </span><b>书名</b></label>
             <div class="layui-input-block">
-                <input type="text" name="name" required autocomplete="off" class="layui-input">
+                <input type="text" name="name" required autocomplete="off" class="layui-input" maxlength="100">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label"><b>作者</b></label>
+            <label class="layui-form-label"><span style="color: red">* </span><b>作者</b></label>
             <div class="layui-input-block">
-                <input type="text" name="author" required autocomplete="off" class="layui-input">
+                <input type="text" name="author" required autocomplete="off" class="layui-input" maxlength="100">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label"><b>出版社</b></label>
+            <label class="layui-form-label"><span style="color: red">* </span><b>出版社</b></label>
             <div class="layui-input-block">
-                <input type="text" name="press" required autocomplete="off" class="layui-input">
+                <input type="text" name="press" required autocomplete="off" class="layui-input" maxlength="30">
             </div>
         </div>
         <div class="layui-form-item">
-            <label class="layui-form-label"><b>分类</b></label>
+            <label class="layui-form-label"><span style="color: red">* </span><b>分类</b></label>
             <div class="layui-input-inline" style="margin-right: 20px;">
                 <select name="b_cate" lay-verify="required" id="b_cate" lay-filter="b_cate">
                     <option value=""></option>

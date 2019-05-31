@@ -141,15 +141,6 @@ body {
     margin-right: 10px;
 }
 
-#sc div,
-.card__front .book-author {
-    /* 放不下文字...表示 */
-    overflow: hidden;
-    word-break: keep-all;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-}
-
 .book-list {
     display: inline-block;
     width: 100%;
@@ -175,6 +166,16 @@ body {
     margin: 20px 0 10px 0;
 }
 
+#sc div,
+.card__front .book-author,
+.card__front .book-press {
+    /* 只现实1行，放不下文字...表示 */
+    overflow: hidden;
+    word-break: keep-all;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 .card__front .book-name {
     /* 只显示2行 */
     overflow: hidden;
@@ -185,12 +186,9 @@ body {
 }
 
 .book-author,
-.book-id {
-    margin-bottom: 10px;
-}
-
+.book-id, 
 .book-press {
-    color: grey;
+    margin-bottom: 10px;
 }
 
 .category-lable {
@@ -226,11 +224,12 @@ body {
     width: 34px;
     height: 34px;
     padding: 0;
+    border-top-right-radius: 8px;
 }
 
 .close-btn button .layui-icon {
     position: absolute;
-    top: 0px;
+    top: -2px;
     left: 4px;
     font-size: 28px;
 }
@@ -276,7 +275,7 @@ body {
     backface-visibility: hidden;
     top: 0;
     left: 0;
- 
+    border-radius: 8px;
 }
 
 .card__front {
@@ -288,8 +287,8 @@ body {
     width: 210px;
     height: 310px;
     background-color: white;
-    border: 1px solid rgb(150, 150, 150);
-    box-shadow: 0 0 15px #aaa;
+    border: 1px solid #bbb;
+    box-shadow: 0 0 15px #ccc;
     padding: 15px 15px 15px 15px;
 }
 

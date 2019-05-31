@@ -9,6 +9,8 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="./css/layui.css">
     <link rel="stylesheet" href="./css/ind.css">
+    <link rel="icon" href="./img/favicon.ico" type="image/x-icon" />
+    <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon" />
     <script src="layui.js"></script>
     <script src="card.js"></script>
     <script>
@@ -234,7 +236,7 @@
                         </div>
                         <div class="book-name"><%=name%></div>
                         <div class="book-author"><%=author%> 著</div>
-                        <div class="book-press"><%=press%></div>
+                        <div class="book-press" style="color: grey"><%=press%></div>
                     </div>
                     <div class="card__back">
                         <div class="close-btn">
@@ -248,6 +250,7 @@
                         </div>
                         <div class="book-name" id="book-name-back"><b><%=name%></b></div>
                         <div class="book-author"><%=author%> 著</div>
+                        <div class="book-press">出版社：<%=press%></div>
                         <div class="book-id">
                             <span>图书编码：</span>
                             <span><%=id%></span>
